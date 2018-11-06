@@ -1,4 +1,4 @@
-# <img src='theia.png' card_color='#40DBB0' width='50' height='50' style='vertical-align:bottom'/> 
+# <img src='theia.png' card_color='#40DBB0' height='50' style='vertical-align:bottom'/> 
 
 
 ## About
