@@ -1,5 +1,8 @@
 from mycroft import MycroftSkill, intent_file_handler
-from 
+import os
+import subprocess
+
+
 class TheiaIde(MycroftSkill):
     def __init__(self):
         MycroftSkill.__init__(self)
@@ -8,19 +11,15 @@ class TheiaIde(MycroftSkill):
         SafePath = self.file_system.path
         AppPath = self._dir
         if self.settings.get('thiea installed') == "False":
-            self.log.info("Installing THEIA IDE. This takes some time....")
-            Repo.clone_from("https://github.com/c9/core.git", SafePath + '/c9')
-            self.log.info("Setting up c9.core. This will take some time to....")
-            os.system(SafePath + '/c9/scripts/install-sdk.sh')
-            self.log.info("Setting up workspace.")
-            os.makedirs(SafePath + '/workspace')
-            os.symlink('/opt/mycroft/skills', SafePath + '/workspace/Mycroft-skills')
-            self.settings['c9 installed'] = "True"
-            self.log.info("c9.core is installed and configured")
-        self.log.info("Starting c9.core")
-        os.system(SafePath + '/c9/server.js -p 8080 -w ' + SafePath + '/workspace -l 0.0.0.0 -a :')
-        #cmd = SafePath + '/c9/server.js -p 8080 -w ' + SafePath + '/workspace -l 0.0.0.0 -a :'
-        #subprocess.call(cmd.split())
+            os.system('cp ' + AppPath + '/install.sh ' + SafePath)
+            os.system('cp ' + AppPath + '/run_theia.sh ' + SafePath)
+            os.system('cp ' + AppPath + '/packages.json ' + SafePath)
+            os.system(SafePath + 'install.sh)
+            ### Some error checking would be fine here ;) 
+            self.log.info("THEIA IDE is installed and configured")
+            self.settings['thiea installed'] = 'True'
+        self.log.info("Starting THEIA IDE")
+        os.system(SafePath + 'run_theia.sh')
 
     @intent_file_handler('ide.theia.intent')
     def handle_ide_theia(self, message):
