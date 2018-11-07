@@ -7,6 +7,3 @@ class TheiaIde(MycroftSkill):
     @intent_file_handler('ide.theia.intent')
     def handle_ide_theia(self, message):
         self.speak_dialog('ide.theia')
-
-#####
-if
