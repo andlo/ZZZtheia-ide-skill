@@ -1,8 +1,10 @@
-# <img src='theia.png' card_color='#40DBB0' height='50' style='vertical-align:bottom'/> THEIA IDE
+# <img src='theia.png' card_color='#40DBB0' width='50' style='vertical-align:bottom'/> THEIA IDE
 
 
 ## About
 Installs and setup THEIA IDE localy on your Mycroft device
+TEST
+tttt
 
 ## Description
 This skill installs Theia IDE on your Mycroft device. This makes it easy to make and edit skills for Mycroft. Thiea IDE integrates whith Github, and you can use mycroft tools like mycroft-msm and mycroft-msk directly from the integrated shell in the IDE.
