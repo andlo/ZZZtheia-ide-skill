@@ -17,7 +17,12 @@ This skill dosnt work yet!
 
 ### What dosnt work
 * install and setup not tested yet. did have problems with vscode-ripgrep, but that part is fixed now
-* problems whit CRLF vs LF in files created from THEIA
+* I think swapsize is to small, as compiling node modules is taking long time, and have lots of memmpry size problems.
+- sudo nano /etc/dphys-swapfile
+- change CONF_SWAPSIZE=100 to 2048
+- sudo /etc/init.d/dphys-swapfile stop
+- sudo /etc/init.d/dphys-swapfile start
+* problems whit CRLF vs LF in files created from THEIA. Should be "files.eol":"\n" in settings.json, but it dosnt work
 
 ### What works
 * running and access to THEIA http://picroft:3000 
