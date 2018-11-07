@@ -12,6 +12,16 @@ Theia provides the VS Code experience in the browser. Developers familiar with M
 https://www.theia-ide.org/index.html
 
 
+# INITIAL WORK !
+This skill dosnt work yet!
+
+## how to install 
+...
+
+
+
+
+
 ## Credits 
 Andreas Lorensen (@andlo)
 
