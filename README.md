@@ -15,9 +15,21 @@ https://www.theia-ide.org/index.html
 # INITIAL WORK !
 This skill dosnt work yet!
 
-## how to install 
-...
+## What dosnt work
+* install and setup - problem with vscode-ripgrep
+* problems whit CRLF vs LF in files created from THEIA
 
+## What works
+* running and access to THEIA http://picroft:3000 
+* Therminal and use og mycroft specifik commands 
+* Git integration - Pull and push and monitor changes etc.
+* search throu all workspaceses
+* Python Language server support - formatiing and highlight etc
+
+## Overall experiance
+I like this IDE, as it is vscode like. Having it on the picroft makes it easier for me to make and edit skills etc. 
+Performance seems OK - dosnt see or feel anything I wouldnt expect from a IDE in thebrowser.
+The git integration is awsome.
 
 
 
