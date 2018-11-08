@@ -1,5 +1,5 @@
 # <img src='theia.png' card_color='#40DBB0' width='50' style='vertical-align:bottom'/> THEIA IDE
-The VS Code experience on your Mycroft device
+VS Code experience on your Mycroft device
 
 ## About
 Installs and setup THEIA IDE localy on your Mycroft device
@@ -25,7 +25,7 @@ This skill isnt finish yet! But now it seems to work.
 
 ### What maybe dosnt work
 * CRLF and not LF at the end of line in new files made by THEIA. There is a editorconfig plugin in THEIA that can be configured to fix this. I am working on the right stuf for that.
- 
+
 
 ### Overall experiance
 I like this IDE, as it is vscode like. Having it on the picroft makes it easier for me to make and edit skills etc.
