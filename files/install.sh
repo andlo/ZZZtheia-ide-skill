@@ -1,7 +1,8 @@
 #!/bin/bash
 
-curl -o- https://raw.githubusercontent.com/creationix/nvm/master/install.sh
-chmod +x install.sh
+cd $1
+curl -o- https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
+#chmod +x install.sh
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm

@@ -1,5 +1,5 @@
 # <img src='theia.png' card_color='#40DBB0' width='50' style='vertical-align:bottom'/> THEIA IDE
-
+The VS Code experience on your Mycroft device
 
 ## About
 Installs and setup THEIA IDE localy on your Mycroft device
@@ -13,17 +13,19 @@ https://www.theia-ide.org/index.html
 
 
 # INITIAL WORK !
-This skill dosnt work yet!!
+This skill isnt finish yet! But now it seems to work.
 
-### What dosnt work
-* Install and setup not tested yet.
-cat se
-### What works
-* running and access to THEIA http://picroft:3000
+### What supposed to work
+* Installing and setup
+* Running and access to THEIA http://picroft:3000
 * Therminal and use og mycroft specifik commands
 * Git integration - Pull and push and monitor changes etc.
-* search throu all workspaceses
+* Search throu all workspaceses
 * Python Language server support - formatiing and highlight etc
+
+### What maybe dosnt work
+* CRLF and not LF at the end of line in new files made by THEIA. There is a editorconfig plugin in THEIA that can be configured to fix this. I am working on the right stuf for that.
+ 
 
 ### Overall experiance
 I like this IDE, as it is vscode like. Having it on the picroft makes it easier for me to make and edit skills etc.
@@ -43,6 +45,17 @@ And restart swarpfile
 sudo /etc/init.d/dphys-swapfile stop
 sudo /etc/init.d/dphys-swapfile start
 ```
+
+Install the skill by
+```
+mycroft-msm install https://github.com/andlo/theia-ide-skill.git
+```
+Skill wil then install THEIA IDE. This takes more than 15 minutes, and will slow your Mycroft device down when compiling node-modules.
+
+When done, there should be a log info saying "Starting THEIA IDE"
+You can then open a web-browser and gå to http://picroft:3000 if your Mycroft device is picroft. If on a Mark One go to http://mark_1:3000
+You then get access to the THEIA IDE in a workplace located /opt/mycroft/skills.
+
 
 ## Credits
 Andreas Lorensen (@andlo)
