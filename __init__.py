@@ -23,8 +23,6 @@ class TheiaIde(MycroftSkill):
         self.log.info("Starting THEIA IDE")
         os.system(SafePath + '/run_theia.sh &')
 
-
-
     @intent_file_handler('ide.theia.intent')
     def handle_ide_theia(self, message):
         self.speak_dialog('ide.theia')
