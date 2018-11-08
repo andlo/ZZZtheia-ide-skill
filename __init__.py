@@ -20,7 +20,7 @@ class TheiaIde(MycroftSkill):
             self.log.info("THEIA IDE is installed and configured")
             self.settings['theia installed'] = 'True'
         self.log.info("Starting THEIA IDE")
-        os.system(SafePath + '/run_theia.sh &')
+        os.system(SafePath + '/run_theia.sh ' + SafePath + ' &')
 
     @intent_file_handler('ide.theia.intent')
     def handle_ide_theia(self, message):
