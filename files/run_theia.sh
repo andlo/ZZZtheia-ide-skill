@@ -1,5 +1,6 @@
 #!/bin/bash
 
+cd $1
 export LOCAL_GIT_DIRECTORY="/usr"
 export GIT_EXEC_PATH="/usr/lib/git-core"
 
