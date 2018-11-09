@@ -15,7 +15,7 @@ class TheiaIde(MycroftSkill):
         AppPath = self._dir
         if self.settings.get('theia installed') == None:
             copy_tree(AppPath + '/files/', SafePath)
-            os.system(SafePath + '/install.sh ' + SafePath)
+            os.system(SafePath + '/install.sh ' + SafePath + ' >' + SafePath + '/install.log')
             ### Some error checking would be fine here ;)
             self.log.info("THEIA IDE is installed and configured")
             self.settings['theia installed'] = 'True'
