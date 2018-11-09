@@ -1,1 +1,2 @@
 pyls
+pyls-mypy
