@@ -13,15 +13,15 @@ class TheiaIde(MycroftSkill):
         self.log.info("Initialize...")
         SafePath = self.file_system.path
         AppPath = self._dir
-        if self.settings.get('theia installed') == None:
+        if self.settings.get('theia installed') is None:
             copy_tree(AppPath + '/files/', SafePath)
             os.system(SafePath + '/install.sh ' + SafePath + ' >' + SafePath + '/install.log')
-            ### Some error checking would be fine here ;)
+            # Some error checking would be fine here ;)
             self.log.info("THEIA IDE is installed and configured")
             self.settings['theia installed'] = 'True'
         self.log.info("Starting THEIA IDE")
         os.system(SafePath + '/run_theia.sh ' + SafePath + ' &')
-        
+
     @intent_file_handler('ide.theia.intent')
     def handle_ide_theia(self, message):
         self.speak_dialog('ide.theia')
