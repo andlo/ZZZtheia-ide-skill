@@ -33,9 +33,11 @@ Performance seems OK - dosnt see or feel anything I wouldnt expect from a IDE in
 The git integration is awsome.
 
 ## How to install
-To get Theai IDE to comile it is needed to encrease the swapsize. This is none by editing the file /etc/dphys-seapfile and setting changing CONF_SWAPSIZE=100 to 2048
+To get Theai IDE to comile it is needed to encrease the swapsize. This is none by editing the file /etc/dphys-seapfile and setting changing CONF_SWAPSIZE=100 to 2048.
 
-to do that ssh into your device and do:
+Be aware that stoch mark_1 only has a 4 GB ssd card. My experiance is that it isnt enough for this skill.
+
+To encrease the swapsize log into your device with ssh and do the following:
 ```
 sudo nano /etc/dphys-swapfile
 ```
