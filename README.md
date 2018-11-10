@@ -58,6 +58,11 @@ When done, there should be a log info saying "Starting THEIA IDE"
 You can then open a web-browser and gå to http://picroft:3000 if your Mycroft device is picroft. If on a Mark One go to http://mark_1:3000
 You then get access to the THEIA IDE in a workplace located /opt/mycroft/skills.
 
+On mark_1 the firewall needs to be opend. This is done by
+```
+sudo ufw allow from any to any port 3000 proto tcp
+```
+
 
 ## Credits
 Andreas Lorensen (@andlo)
