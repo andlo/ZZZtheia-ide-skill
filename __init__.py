@@ -14,14 +14,15 @@ class TheiaIde(MycroftSkill):
         SafePath = self.file_system.path
         AppPath = self._dir
         if self.settings.get('theia installed') is None:
-            self.speak_dialog('install_start')
-            copy_tree(AppPath + '/files/', SafePath)
-            copyfile(AppPath + '/files/.editorconfig', '/opt/mycroft/skills/.editorconfig')
             try:
                 mem = swap_memory()
                 if (int(mem.total/1024/1024)) > 2000:
+                    self.speak_dialog('install_start')
+                    copy_tree(AppPath + '/files/', SafePath)
+                    copyfile(AppPath + '/files/.editorconfig',
+                             '/opt/mycroft/skills/.editorconfig')
                     os.system(SafePath + '/install.sh ' + SafePath +
-                            ' >' + SafePath + '/install.log')
+                              ' >' + SafePath + '/install.log')
                     self.log.info("THEIA IDE is installed and configured")
                     self.settings['theia installed'] = 'True'
                     self.speak_dialog('installed_OK')

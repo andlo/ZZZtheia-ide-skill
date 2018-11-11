@@ -4,33 +4,15 @@ VS Code experience on your Mycroft device
 ## About
 Installs and setup THEIA IDE localy on your Mycroft device
 
-
 ## Description
 This skill installs Theia IDE on your Mycroft device. This makes it easy to make and edit skills for Mycroft. Thiea IDE integrates whith Github, and you can use mycroft tools like mycroft-msm and mycroft-msk directly from the integrated shell in the IDE.
-Theia provides the VS Code experience in the browser. Developers familiar with Microsoft's great editor will find many familiar features and concepts, to minimze the gap when switching between desktop and cloud environment.
+Theia provides the VS Code experience in the browser. Developers familiar with Microsoft's VS code editor will find many familiar features and concepts, to minimze the gap when switching between desktop and webbased environment.
 
 https://www.theia-ide.org/index.html
 
-
-# INITIAL WORK !
-This skill isnt finish yet! But now it seems to work.
-
-### What supposed to work
-* Installing and setup
-* Running and access to THEIA http://picroft:3000
-* Therminal and use og mycroft specifik commands
-* Git integration - Pull and push and monitor changes etc.
-* Search throu all workspaceses
-* Python Language server support - formatiing and highlight etc
-
-### What maybe dosnt work
-* CRLF and not LF at the end of line in new files made by THEIA. There is a editorconfig plugin in THEIA that can be configured to fix this. I am working on the right stuf for that.
-
-
-### Overall experiance
-I like this IDE, as it is vscode like. Having it on the picroft makes it easier for me to make and edit skills etc.
-Performance seems OK - dosnt see or feel anything I wouldnt expect from a IDE in thebrowser.
-The git integration is awsome.
+### When running this skill on Mark_1 there are some features of THEIA IDE that are missing.
+This is because the IDE is running under mycroft user and this user hasnt right privilegede.
+On Picroft THEIA IDE is running under pi user and all features are working
 
 ## How to install
 To get Theai IDE to comile it is needed to encrease the swapsize. This is none by editing the file /etc/dphys-seapfile and setting changing CONF_SWAPSIZE=100 to 2048.
@@ -54,7 +36,7 @@ mycroft-msm install https://github.com/andlo/theia-ide-skill.git
 ```
 Skill wil then install THEIA IDE. This takes more than 15 minutes, and will slow your Mycroft device down when compiling node-modules.
 
-When done, there should be a log info saying "Starting THEIA IDE"
+When done, there should be a log info saying "Starting THEIA IDE" and Mycrot should tell you by voice that he has installed the skill.
 You can then open a web-browser and gå to http://picroft:3000 if your Mycroft device is picroft. If on a Mark One go to http://mark_1:3000
 You then get access to the THEIA IDE in a workplace located /opt/mycroft/skills.
 
@@ -62,7 +44,6 @@ On mark_1 the firewall needs to be opend. This is done by
 ```
 sudo ufw allow from any to any port 3000 proto tcp
 ```
-
 
 ## Credits
 Andreas Lorensen (@andlo)
