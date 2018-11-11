@@ -11,8 +11,7 @@ Theia provides the VS Code experience in the browser. Developers familiar with M
 https://www.theia-ide.org/index.html
 
 ### When running this skill on Mark_1 there are some features of THEIA IDE that are missing.
-This is because the IDE is running under mycroft user and this user hasnt right privilegede.
-On Picroft THEIA IDE is running under pi user and all features are working
+This is - I think - due to the version of python3 is 3.4, and some of the features requere version >= 3.5
 
 ## How to install
 To get Theai IDE to comile it is needed to encrease the swapsize. This is none by editing the file /etc/dphys-seapfile and setting changing CONF_SWAPSIZE=100 to 2048.
