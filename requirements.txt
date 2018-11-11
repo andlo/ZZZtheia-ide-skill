@@ -1,1 +1,2 @@
 python-language-server[all]
+pyls-mypy

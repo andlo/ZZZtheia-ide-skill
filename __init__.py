@@ -1,5 +1,6 @@
 from mycroft import MycroftSkill, intent_file_handler
 from distutils.dir_util import copy_tree
+from shutil import copyfile
 import os
 
 
@@ -13,6 +14,7 @@ class TheiaIde(MycroftSkill):
         AppPath = self._dir
         if self.settings.get('theia installed') is None:
             copy_tree(AppPath + '/files/', SafePath)
+            copyfile(AppPath + '/files/.editorconfig', '/opt/mycroft/skills/.editorconfig')
             os.system(SafePath + '/install.sh ' + SafePath +
                       ' >' + SafePath + '/install.log')
             # Some error checking would be fine here ;)
