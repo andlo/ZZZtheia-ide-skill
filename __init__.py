@@ -1,6 +1,7 @@
 from mycroft import MycroftSkill, intent_file_handler
 from distutils.dir_util import copy_tree
 from shutil import copyfile
+from psutil import swap_memory
 import os
 
 
@@ -13,15 +14,23 @@ class TheiaIde(MycroftSkill):
         SafePath = self.file_system.path
         AppPath = self._dir
         if self.settings.get('theia installed') is None:
+            self.speak_dialog('install_start')
             copy_tree(AppPath + '/files/', SafePath)
             copyfile(AppPath + '/files/.editorconfig', '/opt/mycroft/skills/.editorconfig')
             try:
-                os.system(SafePath + '/install.sh ' + SafePath +
-                          ' >' + SafePath + '/install.log')
-                self.log.info("THEIA IDE is installed and configured")
-                self.settings['theia installed'] = 'True'
+                mem = swap_memory()
+                if (int(mem.total/1024/1024)) > 2000:
+                    os.system(SafePath + '/install.sh ' + SafePath +
+                            ' >' + SafePath + '/install.log')
+                    self.log.info("THEIA IDE is installed and configured")
+                    self.settings['theia installed'] = 'True'
+                    self.speak_dialog('installed_OK')
+                else:
+                    self.log.error("Not enough memmory. Encrease swap size!")
+                    self.speak_dialog('not_enough_swap')
             except Exception:
                 self.log.error("THEIA IDE is NOT installed")
+                self.speak_dialog('installed_BAD')
         if self.settings.get('theia installed') == 'True':
                 self.log.info("Starting THEIA IDE")
                 os.system(SafePath + '/run_theia.sh ' + SafePath + ' &')
