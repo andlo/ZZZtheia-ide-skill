@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 cd $1
 curl -o- https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash

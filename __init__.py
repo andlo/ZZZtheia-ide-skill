@@ -15,13 +15,16 @@ class TheiaIde(MycroftSkill):
         if self.settings.get('theia installed') is None:
             copy_tree(AppPath + '/files/', SafePath)
             copyfile(AppPath + '/files/.editorconfig', '/opt/mycroft/skills/.editorconfig')
-            os.system(SafePath + '/install.sh ' + SafePath +
-                      ' >' + SafePath + '/install.log')
-            # Some error checking would be fine here ;)
-            self.log.info("THEIA IDE is installed and configured")
-            self.settings['theia installed'] = 'True'
-        self.log.info("Starting THEIA IDE")
-        os.system(SafePath + '/run_theia.sh ' + SafePath + ' &')
+            try:
+                os.system(SafePath + '/install.sh ' + SafePath +
+                          ' >' + SafePath + '/install.log')
+                self.log.info("THEIA IDE is installed and configured")
+                self.settings['theia installed'] = 'True'
+            except Exception:
+                self.log.error("THEIA IDE is NOT installed")
+        if self.settings.get('theia installed') == 'True':
+                self.log.info("Starting THEIA IDE")
+                os.system(SafePath + '/run_theia.sh ' + SafePath + ' &')
 
     @intent_file_handler('ide.theia.intent')
     def handle_ide_theia(self, message):
