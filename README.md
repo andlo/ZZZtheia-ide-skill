@@ -14,7 +14,7 @@ https://www.theia-ide.org/index.html
 This is - I think - due to the version of python3 is 3.4, and some of the features requere version >= 3.5
 
 ## How to install
-To get Theai IDE to comile it is needed to encrease the swapsize. This is none by editing the file /etc/dphys-seapfile and setting changing CONF_SWAPSIZE=100 to 2048.
+To get Theai IDE to comile it is needed to encrease the swapsize. This is done by editing the file /etc/dphys-seapfile and setting changing CONF_SWAPSIZE=100 to 2048.
 
 Be aware that stoch mark_1 only has a 4 GB ssd card. My experiance is that it isnt enough for this skill.
 
