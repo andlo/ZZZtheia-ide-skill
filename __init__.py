@@ -22,7 +22,7 @@ class TheiaIde(MycroftSkill):
                     copyfile(AppPath + '/files/.editorconfig',
                              '/opt/mycroft/skills/.editorconfig')
                     os.system(SafePath + '/install.sh ' + SafePath +
-                              ' >' + SafePath + '/install.log')
+                              ' 2>/dev/null 1>/dev/null')
                     self.log.info("THEIA IDE is installed and configured")
                     self.settings['theia installed'] = 'True'
                     self.speak_dialog('installed_OK')
@@ -34,7 +34,7 @@ class TheiaIde(MycroftSkill):
                 self.speak_dialog('installed_BAD')
         if self.settings.get('theia installed') == 'True':
                 self.log.info("Starting THEIA IDE")
-                os.system(SafePath + '/run_theia.sh ' + SafePath + ' &')
+                os.system(SafePath + '/run_theia.sh ' + SafePath + ' 2>/dev/null 1>/dev/null &')
 
     @intent_file_handler('ide.theia.intent')
     def handle_ide_theia(self, message):
@@ -43,6 +43,3 @@ class TheiaIde(MycroftSkill):
 
 def create_skill():
     return TheiaIde()
-
-
-
