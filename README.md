@@ -10,17 +10,18 @@ Theia provides the VS Code experience in the browser. Developers familiar with M
 
 https://www.theia-ide.org/index.html
 
-## How to install
+## Warning
 This skill will not install if there isnt enough free diskspace. This is mainly because the skill needs Gb swapfile to compile and run.
 The instal will try to encrease swapfilesize if there is enough (more than 5 Gb) free space on the ssd card.
 
 Be aware that mark_1 came with only  a 4 GB ssd card. So if you hassnt changed that, the skill will not install or run.
 
-###Install the skill by
+## How to install
+Install the skill by ssh to your device and run this command
 ```
 mycroft-msm install https://github.com/andlo/theia-ide-skill.git
 ```
-Skill wil then install THEIA IDE. This takes more than 15 minutes, and will slow your Mycroft device during install and when compiling node-modules.
+Skill will then install THEIA IDE. This takes more than 15 minutes, and will slow your Mycroft device during install and when compiling node-modules.
 
 When done, there should be a log info saying "Starting THEIA IDE" and Mycrot should tell you by voice that he has installed the skill.
 You can then open a web-browser and gå to http://picroft:3000 if your Mycroft device is picroft. If on a Mark One go to http://mark_1:3000
