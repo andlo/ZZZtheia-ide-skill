@@ -1,9 +1,6 @@
 #!/bin/bash
-set -e
-
 cd $1
 curl -o- https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
-#chmod +x install.sh
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -14,5 +11,3 @@ npm install -g yarn
 
 yarn
 yarn theia build
-
-#
