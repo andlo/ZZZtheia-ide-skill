@@ -36,14 +36,12 @@ fi
 # Making swafile much bigger if there is enough free diskspace
 freespace = $(df . | awk 'NR==2{print $4/1024/1024}')
 if [ ${freespace%.*} >= 5 ]; then
-    priv="sudo"
     sed -i -e "s/CONF_SWAPSIZE=100/CONF_SWAPSIZE=2048/" /etc/dphys-swapfile
     /etc/init.d/dphys-swapfile stop
     /etc/init.d/dphys-swapfile start
 fi
 # On Mark_1 the firewall needs to be opend
 if [ -f /usr/sbin/ufw ]; then
-        priv="sudo"
         ufw allow from any to any port 3000 proto tcp
 fi
 
