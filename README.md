@@ -12,7 +12,6 @@ https://www.theia-ide.org/index.html
 
 ## Warning
 This skill will not install if there isnt enough free diskspace. This is mainly because the skill needs Gb swapfile to compile and run.
-The instal will try to encrease swapfilesize if there is enough (more than 5 Gb) free space on the ssd card.
 
 Be aware that mark_1 came with only  a 4 GB ssd card. So if you hassnt changed that, the skill will not install or run.
 
