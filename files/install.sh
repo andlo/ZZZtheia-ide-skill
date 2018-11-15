@@ -1,13 +1,11 @@
 #!/bin/bash
-cd $1
-curl -o- https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+## install theia-ide as user pi
+sudo -i -u pi ./theia_install.sh
 
-nvm install 8
-npm install -g yarn
-
-yarn
-yarn theia build
+## Setup service
+cp -u theia-ide.service /lib/systemd/system
+chmod 644 /lib/systemd/system/theia-ide.service
+systemctl daemon-reload
+systemctl enable hello.service
+systemctl start hello.service

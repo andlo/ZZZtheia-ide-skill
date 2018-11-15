@@ -1,0 +1,11 @@
+[Unit]
+Description=Theia IDE
+After=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/home/pi/theia-ide/theia_run.sh
+Restart=on-abort
+User=pi
+[Install]
+WantedBy=multi-user.target
