@@ -7,5 +7,6 @@ Type=simple
 ExecStart=/home/pi/theia-ide/theia_run.sh
 Restart=on-abort
 User=pi
+EnvironmentFile=/home/pi/theia-ide/theia-ide.env
 [Install]
 WantedBy=multi-user.target
