@@ -1,5 +1,5 @@
 # <img src='theia.png' card_color='#40DBB0' width='50' style='vertical-align:bottom'/> THEIA IDE
-VS Code experience on your Mycroft device
+VS Code experience on your Mycroft device.
 
 ## About
 Installs and setup THEIA IDE localy on your Mycroft device
