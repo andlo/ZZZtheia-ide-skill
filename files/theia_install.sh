@@ -1,5 +1,5 @@
 #!/bin/bash
-cd $(dirname "$0")
+cd $1
 mkdir theia-ideAAA
 cd theia-ideAAA
 #cd $(pwd)
