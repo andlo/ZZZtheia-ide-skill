@@ -1,17 +1,19 @@
 #!/bin/bash
 cd $(dirname "$0")
+mkdir theia-ideAAA
+cd theia-ideAAA
 #cd $(pwd)
 
 ## enter .venv
 ## If picroft
-if [ -f /home/pi/mycroft-core/.venv/bin/activate ]; then
-    source /home/pi/mycroft-core/.venv/bin/activate
-    export PATH="$HOME/bin:$HOME/mycroft-core/bin:$PATH"
-fi
+#if [ -f /home/pi/mycroft-core/.venv/bin/activate ]; then
+#    source /home/pi/mycroft-core/.venv/bin/activate
+#    export PATH="$HOME/bin:$HOME/mycroft-core/bin:$PATH"
+#fi
 ## if mark_1
-if [ -f /opt/venvs/mycroft-core/bin/activate ]; then
-    source /opt/venvs/mycroft-core/bin/activate
-fi
+#if [ -f /opt/venvs/mycroft-core/bin/activate ]; then
+#    source /opt/venvs/mycroft-core/bin/activate
+#fi
 
 echo "Installing nvm..."
 #curl -o nvm_install.sh https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash >/dev/null 2>/dev/null
