@@ -18,9 +18,11 @@ class TheiaIde(MycroftSkill):
                 mem = swap_memory()
                 if (int(mem.total/1024/1024)) > 2000:
                     self.speak_dialog('install_start')
+                    self.log.info(
+                        "Installing and configured THEIA IDE - This will take some time...")
                     copy_tree(AppPath + '/files/', SafePath)
                     copyfile(AppPath + '/files/.editorconfig',
-                                '/opt/mycroft/skills/.editorconfig')
+                             '/opt/mycroft/skills/.editorconfig')
                     os.system(SafePath + '/theia_install.sh ' + SafePath)
                     self.log.info("THEIA IDE is installed and configured")
                     self.settings['theia installed'] = 'True'
@@ -32,9 +34,8 @@ class TheiaIde(MycroftSkill):
                 self.log.error("THEIA IDE is NOT installed")
                 self.speak_dialog('installed_BAD')
         if self.settings.get('theia installed') == 'True':
-                self.log.info("Starting THEIA IDE")
-                os.system(SafePath + '/theia_run.sh ' +
-                          SafePath + ' 2>/dev/null 1>/dev/null &')
+            self.log.info("Starting THEIA IDE")
+            os.system(SafePath + '/theia_run.sh ' + SafePath)
 
     @intent_file_handler('ide.theia.intent')
     def handle_ide_theia(self, message):
