@@ -7,13 +7,12 @@ if [ "$(whoami)" == "mycroft" ]; then
 fi
 
 ## enter venv
-source mycroft-core/venv-activate.sh -q
-
+#source /home/pi/mycroft-core/venv-activate.sh -q
 cd $HOME/theia-ide
 
 ## make sure git is working
-export LOCAL_GIT_DIRECTORY="/usr"
-export GIT_EXEC_PATH="/usr/lib/git-core"
+#export LOCAL_GIT_DIRECTORY="/usr"
+#export GIT_EXEC_PATH="/usr/lib/git-core"
 
 ## setup and load nvm
 export NVM_DIR="$HOME/.nvm"

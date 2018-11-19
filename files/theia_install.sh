@@ -13,6 +13,6 @@ npm install -g yarn
 yarn
 yarn theia build
 
-mycroft-pip install python-language-server
+pip3 install python-language-server
 
 cp -u .editorconfig /opt/mycroft/skills
