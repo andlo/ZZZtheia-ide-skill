@@ -37,9 +37,3 @@ yarn theia build >/dev/null 2>/dev/null
 echo "Installing Python Language Server"
 mycroft-pip install python-language-server >/dev/null 2>/dev/null
 
-<<<<<<< HEAD
-cp -u $(pwd)/editorconfig $HOME/.editorconfig
-=======
-pip3 install python-language-server
->>>>>>> 23f9797fe18ee65dee9249238790a0897139a8be
-
