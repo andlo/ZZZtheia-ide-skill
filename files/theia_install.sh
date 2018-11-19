@@ -1,7 +1,5 @@
 #!/bin/bash
 cd $1
-mkdir theia-ideAAA
-cd theia-ideAAA
 #cd $(pwd)
 
 ## enter .venv
@@ -33,7 +31,4 @@ npm install -g yarn >/dev/null 2>/dev/null
 echo "Building theia..."
 yarn >/dev/null 2>/dev/null
 yarn theia build >/dev/null 2>/dev/null
-
-echo "Installing Python Language Server"
-mycroft-pip install python-language-server >/dev/null 2>/dev/null
 

@@ -21,8 +21,7 @@ class TheiaIde(MycroftSkill):
                     copy_tree(AppPath + '/files/', SafePath)
                     copyfile(AppPath + '/files/.editorconfig',
                                 '/opt/mycroft/skills/.editorconfig')
-                    os.system(SafePath + '/theia_install.sh ' + SafePath +
-                                ' 2>/dev/null 1>/dev/null')
+                    os.system(SafePath + '/theia_install.sh ' + SafePath)
                     self.log.info("THEIA IDE is installed and configured")
                     self.settings['theia installed'] = 'True'
                     self.speak_dialog('installed_OK')
