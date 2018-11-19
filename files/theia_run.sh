@@ -1,6 +1,8 @@
 #!/bin/bash
 #cd $(dirname "$0")
 cd $1
+
+
 ## make sure git is working
 #export LOCAL_GIT_DIRECTORY="/usr"
 #export GIT_EXEC_PATH="/usr/lib/git-core"
@@ -18,8 +20,8 @@ cd $1
 
 ## setup and load nvm
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" >/dev/null 2>/dev/null # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" >/dev/null 2>/dev/null # This loads nvm bash_completion
 
 ## run theia-ide
-yarn theia start /opt/mycroft/skills  --startup-timeout -1 --hostname 0.0.0.0 --port 4000
+yarn theia start /opt/mycroft/skills  --startup-timeout -1 --hostname 0.0.0.0 --port 3001 >/dev/null 2>/dev/null
