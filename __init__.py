@@ -19,18 +19,20 @@ class TheiaIde(MycroftSkill):
             self.speak_dialog('install_start')
             self.log.info(
                 "Downloading precompiled package for the " + platform + " platform.")
+            self.speak_dialog("Downloading precompiled package for the " + platform + " platform.")
             # getting the precompiled package depending on platform
             if platform == "picroft":
                 url = 'https://github.com/andlo/theia-for-mycroft/releases/download/THEIA-for-Mycroft/theiaide-picroft.tgz'
             if platform == "mycroft_mark_1":
-                url = 'https://github.com/andlo/theia-for-mycroft/releases/download/THEIA-for-Mycroft/theiaide-picroft.tgz'
+                url = 'https://github.com/andlo/theia-for-mycroft/releases/download/THEIA-for-Mycroft/theiaide-mycroft.tgz'
             try:
-                filename = wget.download(url, SafePath + '/thiea.tgz')
+                filename = wget.download(url, SafePath + '/theiaide.tgz')
+                self.speak_dialog('Unpacking...')
                 package = tarfile.open(filename)
                 package.extractall(SafePath)
                 package.close()
-                #copyfile(self._dir + '/files/.editorconfig',
-                #         '/opt/mycroft/skills/.editorconfig')
+                copyfile(self._dir + '/files/.editorconfig',
+                         '/opt/mycroft/skills/.editorconfig')
                 self.log.info("Installed OK")
                 self.settings['theia installed'] = 'True'
                 self.speak_dialog('installed_OK')
