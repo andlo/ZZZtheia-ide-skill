@@ -26,9 +26,6 @@ class TheiaIde(MycroftSkill):
                 url = 'https://github.com/andlo/theia-for-mycroft/releases/download/THEIA-for-Mycroft/theiaide-picroft.tgz'
             try:
                 filename = wget.download(url, SafePath)
-            except Exception:
-                self.log.error('Coundnt download precompiled package!')
-            try:
                 package = tarfile.open(filename)
                 package.extractall(SafePath)
                 package.close()
