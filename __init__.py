@@ -20,7 +20,7 @@ class TheiaIde(MycroftSkill):
             # getting the precompiled package depending on platform
             if platform is 'picroft':
                 url = 'https://github.com/andlo/theia-for-mycroft/releases/download/THEIA-for-Mycroft/theiaide-picroft.tgz'
-            elif platform is 'mark_1':
+            elif platform is 'mycroft_mark_1':
                 url = 'https://github.com/andlo/theia-for-mycroft/releases/download/THEIA-for-Mycroft/theiaide-picroft.tgz'
             else:
                 self.log.info(
