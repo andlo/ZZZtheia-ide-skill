@@ -1,8 +1,8 @@
 from mycroft import MycroftSkill, intent_file_handler
-from distutils.dir_util import copy_tree
 from shutil import copyfile
-from psutil import swap_memory
 import os
+import tarfile
+import wget
 
 
 class TheiaIde(MycroftSkill):
@@ -12,30 +12,40 @@ class TheiaIde(MycroftSkill):
     def initialize(self):
         self.log.info("Initialize...")
         SafePath = self.file_system.path
-        AppPath = self._dir
+        platform = self.config_core.get('enclosure', {}).get('platform')
         if self.settings.get('theia installed') is None:
+            self.speak_dialog('install_start')
+            self.log.info(
+                "Downloading precompiled package for the " + platform + " platform.")
+            # getting the precompiled package depending on platform
+            if platform is 'picroft':
+                url = 'https://github.com/andlo/theia-for-mycroft/releases/download/THEIA-for-Mycroft/theiaide-picroft.tgz'
+            elif platform is 'mark_1':
+                url = 'https://github.com/andlo/theia-for-mycroft/releases/download/THEIA-for-Mycroft/theiaide-picroft.tgz'
+            else:
+                self.log.info(
+                    "No precompiled package for your platform " + platform)
+                self.speak_dialog('Platform not usefull')
+                return
             try:
-                # mem = swap_memory()
-                # if (int(mem.total/1024/1024)) > 2000:
-                self.speak_dialog('install_start')
-                copy_tree(AppPath + '/files/', SafePath)
-                copyfile(AppPath + '/files/.editorconfig',
-                            '/opt/mycroft/skills/.editorconfig')
-                os.system(SafePath + '/install.sh ' + SafePath +
-                            ' 2>/dev/null 1>/dev/null')
-                self.log.info("THEIA IDE is installed and configured")
+                filename = wget.download(url, SafePath)
+            except Exception:
+                self.log.error('Coundnt download precompiled package!')
+            try:
+                package = tarfile.open(filename)
+                package.extractall(SafePath)
+                package.close()
+                copyfile(self._dir + '/files/.editorconfig',
+                         '/opt/mycroft/skills/.editorconfig')
+                self.log.info("Installed OK")
                 self.settings['theia installed'] = 'True'
                 self.speak_dialog('installed_OK')
-                #else:
-                #    self.log.error("Not enough memmory. Encrease swap size!")
-                #    self.speak_dialog('not_enough_swap')
             except Exception:
-                self.log.error("THEIA IDE is NOT installed")
+                self.log.info("Theia not installed-something went wrong!")
                 self.speak_dialog('installed_BAD')
         if self.settings.get('theia installed') == 'True':
-                self.log.info("Starting THEIA IDE")
-                os.system(SafePath + '/run_theia.sh ' +
-                          SafePath + ' 2>/dev/null 1>/dev/null &')
+            self.log.info("Starting THEIA IDE")
+            os.system(SafePath + '/theia_run.sh ' + SafePath)
 
     @intent_file_handler('ide.theia.intent')
     def handle_ide_theia(self, message):
