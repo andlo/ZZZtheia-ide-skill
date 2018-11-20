@@ -5,13 +5,6 @@ cd $1
 #export LOCAL_GIT_DIRECTORY="/usr"
 #export GIT_EXEC_PATH="/usr/lib/git-core"
 
-## on mark_one tehre is a compiled git in the package that we need to use...
-if [ -f $(pwd)/git ]; then
-   export PATH=$PATH:$(pwd)/git
-   export LOCAL_GIT_DIRECTORY="$(pwd)/git"
-   export GIT_EXEC_PATH="$(pwd)/git-core"
-fi
-
 ## setup and load nvm
 export NVM_DIR="$(pwd)/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" >/dev/null 2>/dev/null # This loads nvm
