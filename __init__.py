@@ -20,14 +20,14 @@ class TheiaIde(MycroftSkill):
             self.log.info(
                 "Downloading precompiled package for the " + platform + " platform.")
             # getting the precompiled package depending on platform
-            #if platform is "picroft":
-            #    url = 'https://github.com/andlo/theia-for-mycroft/releases/download/THEIA-for-Mycroft/theiaide-picroft.tgz'
-            #if platform is "mycroft_mark_1":
-            url = 'https://github.com/andlo/theia-for-mycroft/releases/download/THEIA-for-Mycroft/theiaide-picroft.tgz'
-            #try:
+            if platform == "picroft":
+                url = 'https://github.com/andlo/theia-for-mycroft/releases/download/THEIA-for-Mycroft/theiaide-picroft.tgz'
+            if platform == "mycroft_mark_1":
+                url = 'https://github.com/andlo/theia-for-mycroft/releases/download/THEIA-for-Mycroft/theiaide-picroft.tgz'
+            try:
             filename = wget.download(url, SafePath)
-            #except Exception:
-            #    self.log.error('Coundnt download precompiled package!')
+            except Exception:
+                self.log.error('Coundnt download precompiled package!')
             try:
                 package = tarfile.open(filename)
                 package.extractall(SafePath)
