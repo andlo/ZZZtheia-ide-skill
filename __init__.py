@@ -22,13 +22,8 @@ class TheiaIde(MycroftSkill):
             # getting the precompiled package depending on platform
             if platform is "picroft":
                 url = 'https://github.com/andlo/theia-for-mycroft/releases/download/THEIA-for-Mycroft/theiaide-picroft.tgz'
-            elif platform is "mycroft_mark_1":
+            if platform is "mycroft_mark_1":
                 url = 'https://github.com/andlo/theia-for-mycroft/releases/download/THEIA-for-Mycroft/theiaide-picroft.tgz'
-            else:
-                self.log.info(
-                    "No precompiled package for your platform " + platform)
-                self.speak_dialog('Platform not usefull')
-                return
             try:
                 filename = wget.download(url, SafePath)
             except Exception:
