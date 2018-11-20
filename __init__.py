@@ -32,8 +32,8 @@ class TheiaIde(MycroftSkill):
                 package = tarfile.open(filename)
                 package.extractall(SafePath)
                 package.close()
-                copyfile(self._dir + '/files/.editorconfig',
-                         '/opt/mycroft/skills/.editorconfig')
+                #copyfile(self._dir + '/files/.editorconfig',
+                #         '/opt/mycroft/skills/.editorconfig')
                 self.log.info("Installed OK")
                 self.settings['theia installed'] = 'True'
                 self.speak_dialog('installed_OK')
