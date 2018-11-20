@@ -13,6 +13,8 @@ class TheiaIde(MycroftSkill):
         self.log.info("Initialize...")
         SafePath = self.file_system.path
         platform = self.config_core.get('enclosure', {}).get('platform')
+        self.log.info(platform)
+        self.speak_dialog(platform)
         if self.settings.get('theia installed') is None:
             self.speak_dialog('install_start')
             self.log.info(
