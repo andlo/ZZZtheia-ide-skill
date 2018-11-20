@@ -25,7 +25,7 @@ class TheiaIde(MycroftSkill):
             if platform == "mycroft_mark_1":
                 url = 'https://github.com/andlo/theia-for-mycroft/releases/download/THEIA-for-Mycroft/theiaide-picroft.tgz'
             try:
-                filename = wget.download(url, SafePath + '/')
+                filename = wget.download(url, SafePath + '/thiea.tgz')
                 package = tarfile.open(filename)
                 package.extractall(SafePath)
                 package.close()
