@@ -13,8 +13,6 @@ class TheiaIde(MycroftSkill):
         self.log.info("Initialize...")
         SafePath = self.file_system.path
         platform = self.config_core.get('enclosure', {}).get('platform')
-        self.log.info(platform)
-        self.speak_dialog(platform)
         if self.settings.get('theia installed') is None:
             self.speak_dialog('install_start')
             self.log.info(
@@ -24,7 +22,7 @@ class TheiaIde(MycroftSkill):
             if platform == "picroft":
                 url = 'https://github.com/andlo/theia-for-mycroft/releases/download/THEIA-for-Mycroft/theiaide-picroft.tgz'
             if platform == "mycroft_mark_1":
-                url = 'https://github.com/andlo/theia-for-mycroft/releases/download/THEIA-for-Mycroft/theiaide-mycroft.tgz'
+                url = 'https://github.com/andlo/theia-for-mycroft/releases/download/THEIA-for-Mycroft/theiaide-mark1.tgz'
             try:
                 filename = wget.download(url, SafePath + '/theiaide.tgz')
                 self.speak_dialog('Unpacking...')
