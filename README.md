@@ -6,9 +6,12 @@ Installs and setup THEIA IDE localy on your Mycroft device
 
 ## Description
 This skill installs Theia IDE on your Mycroft device. This makes it easy to make and edit skills for Mycroft. Thiea IDE integrates whith Github, and you can use mycroft tools like mycroft-msm and mycroft-msk directly from the integrated shell in the IDE.
-Theia provides the VS Code experience in the browser. Developers familiar with Microsoft's VS code editor will find many familiar features and concepts.
+Theia provides the VS Code experience in the browser.
+People familiar with Microsoft's VS Code editor will find many familiar features and concepts.
 
 https://www.theia-ide.org/index.html
+
+<img src='screenshot.png' card_color='#40DBB0' width='500' style='vertical-align:bottom'/>
 
 ## How to install
 Install the skill by running this command
@@ -21,25 +24,11 @@ When done, there should be a log info saying "Starting THEIA IDE" and Mycrot sho
 You can then open a web-browser and gå to http://picroft:3000 if your Mycroft device is picroft. If on a Mark One go to http://mark_1:3000
 You then get access to the THEIA IDE in a workplace located /opt/mycroft/skills.
 
-## Special notise about Mark 1
+## Mark 1
 On Mark_ the firewall needs to be open. SSH to your mark_1 and run the follow command
 ```
 sudo ufw allow from any to any port 3000 proto tcp
 ```
-Also notise that because mark_1 is built on raspbian jessie, the version of git is to old, and THEIA IDE cant use that for git integration.
-If you want git integration to work you need to download and compile git.
-That can be done like this:
-```
-git clone git://git.kernel.org/pub/scm/git/git.git
-cd git
-make configure
-./configure --prefix=/usr
-make all doc info
-sudo make install install-doc install-html install-info
-```
-
-
-
 
 ## Credits
 Andreas Lorensen (@andlo)

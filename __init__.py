@@ -17,7 +17,8 @@ class TheiaIde(MycroftSkill):
             self.speak_dialog('install_start')
             self.log.info(
                 "Downloading precompiled package for the " + platform + " platform.")
-            self.speak_dialog("Downloading precompiled package for the " + platform + " platform.")
+            self.speak_dialog(
+                "Downloading precompiled package for the " + platform + " platform.")
             # getting the precompiled package depending on platform
             if platform == "picroft":
                 url = 'https://github.com/andlo/theia-for-mycroft/releases/download/THEIA-for-Mycroft/theiaide-picroft.tgz'
