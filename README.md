@@ -11,7 +11,7 @@ People familiar with Microsoft's VS Code editor will find many familiar features
 
 https://www.theia-ide.org/index.html
 
-<img src='screenshot.png' card_color='#40DBB0' width='500' style='vertical-align:bottom'/>
+<img src='screenshot.png' card_color='#40DBB0' width='800' style='vertical-align:bottom'/>
 
 ## How to install
 Install the skill by running this command
