@@ -13,7 +13,7 @@ class TheiaIde(MycroftSkill):
         self.log.info("Initialize...")
         SafePath = self.file_system.path
         platform = self.config_core.get('enclosure', {}).get('platform')
-        if self.settings.get('theia installed') is None and not os.path.isfile(SafePath + '/theia_run.sh'):
+        if not os.path.isfile(SafePath + '/theia_run.sh'):
             self.speak_dialog('install_start')
             self.log.info(
                 "Downloading precompiled package for the " + platform + " platform.")
@@ -38,9 +38,9 @@ class TheiaIde(MycroftSkill):
             except Exception:
                 self.log.info("Theia not installed-something went wrong!")
                 self.speak_dialog('installed_BAD')
-        if self.settings.get('theia installed') == 'True':
-            self.log.info("Starting THEIA IDE")
-            os.system(SafePath + '/theia_run.sh ' + SafePath)
+        #if self.settings.get('theia installed') == 'True':
+        self.log.info("Starting THEIA IDE")
+        os.system(SafePath + '/theia_run.sh ' + SafePath)
 
     @intent_file_handler('ide.theia.intent')
     def handle_ide_theia(self, message):
