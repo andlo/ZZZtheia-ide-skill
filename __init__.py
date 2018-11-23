@@ -3,6 +3,7 @@ from shutil import copyfile
 import os
 import tarfile
 import wget
+import subprocess
 
 
 class TheiaIde(MycroftSkill):
@@ -40,7 +41,9 @@ class TheiaIde(MycroftSkill):
                 self.speak_dialog('installed_BAD')
         #if self.settings.get('theia installed') == 'True':
         self.log.info("Starting THEIA IDE")
-        os.system(SafePath + '/theia_run.sh ' + SafePath)
+        #os.system(SafePath + '/theia_run.sh ' + SafePath)
+        subprocess.call(SafePath + '/theia_run.sh ' + SafePath, shell=True)
+
 
     @intent_file_handler('ide.theia.intent')
     def handle_ide_theia(self, message):
