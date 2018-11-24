@@ -24,11 +24,21 @@ When done, there should be a log info saying "Starting THEIA IDE" and Mycrot sho
 You can then open a web-browser and gå to http://picroft:3000 if your Mycroft device is picroft. If on a Mark One go to http://mark_1:3000
 You then get access to the THEIA IDE in a workplace located /opt/mycroft/skills.
 
+Skillsettings on https://home.mycroft.ai/ have one checkboks for setting auto start or not.
+
 ## Mark 1
 On Mark_ the firewall needs to be open. SSH to your mark_1 and run the follow command
 ```
 sudo ufw allow from any to any port 3000 proto tcp
 ```
+
+## Updating THEIA IDE
+For now, to update the THEIA IDE remove and reinstall this skill.
+
+## Examples
+* "Start IDE"
+* "Stop IDE"
+* "Restart IDE"
 
 ## Credits
 Andreas Lorensen (@andlo)
