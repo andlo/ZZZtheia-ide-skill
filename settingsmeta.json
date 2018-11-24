@@ -8,7 +8,7 @@
                     {
                         "name": "auto_start",
                         "label": "Auto start ide",
-                        "type": "bool",
+                        "type": "checkbox",
                         "value": "true"
                     }
                 ]
