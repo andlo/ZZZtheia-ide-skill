@@ -28,7 +28,10 @@ class TheiaIde(MycroftSkill):
     def handle_ide_stop(self, message):
         self.log.info("Stopping IDE")
         os.killpg(self.theia_process.pid, signal.SIGKILL)
+        if self.theia_process is not None:
+            self.theia_process = None
         self.speak_dialog('IDE stopped')
+
 
     @intent_file_handler('start.intent')
     def handle_ide_start(self, message):
