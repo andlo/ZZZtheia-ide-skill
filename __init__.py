@@ -21,29 +21,27 @@ class TheiaIde(MycroftSkill):
         if self.settings.get("auto_start") is True:
             self.run_theia()
 
-    @intent_file_handler('ide.theia.intent')
-    def handle_ide_theia(self, message):
-        self.speak_dialog('ide.theia')
-
     @intent_file_handler('stop.intent')
     def handle_ide_stop(self, message):
         if self.stop_theia():
-            self.speak_dialog('IDE stopped')
+            self.speak_dialog('ide_stopped')
         else:
-            self.speak_dialog('IDE is not running')
+            self.speak_dialog('ide_is_not_running')
 
     @intent_file_handler('start.intent')
     def handle_ide_start(self, message):
+        url = "http://" + os.getenv('HOSTNAME') + ":3000"
         if self.run_theia():
-            self.speak_dialog('IDE started')
+            self.speak_dialog('ide_started', data={"url": url})
         else:
-            self.speak_dialog('IDE alreddy running')
+            self.speak_dialog('ide_alreddy_running', data={"url": url})
 
     @intent_file_handler('restart.intent')
     def handle_ide_restart(self, message):
+        url = "http://" + os.getenv('HOSTNAME') + ":3000"
         self.stop_theia()
         if self.run_theia():
-            self.speak_dialog('IDE restarted')
+            self.speak_dialog('ide_started', data={"url": url})
 
     def stop_theia(self):
         self.log.info("Stopping IDE")
@@ -70,16 +68,14 @@ class TheiaIde(MycroftSkill):
             self.speak_dialog('install_start')
             self.log.info(
                 "Downloading precompiled package for the " + platform + " platform.")
-            self.speak_dialog(
-                "Downloading precompiled package for the " + platform + " platform.")
-            # getting the precompiled package depending on platform
+            self.speak_dialog('downloading', data={"platform": platform})
             if platform == "picroft":
                 url = 'https://github.com/andlo/theia-for-mycroft/releases/download/THEIA-for-Mycroft/theiaide-picroft.tgz'
             if platform == "mycroft_mark_1":
                 url = 'https://github.com/andlo/theia-for-mycroft/releases/download/THEIA-for-Mycroft/theiaide-mark1.tgz'
             try:
                 filename = wget.download(url, self.SafePath + '/theiaide.tgz')
-                self.speak_dialog('Unpacking theia IDE...')
+                self.log.info("Unpacking....")
                 package = tarfile.open(filename)
                 package.extractall(self.SafePath)
                 package.close()
@@ -91,7 +87,7 @@ class TheiaIde(MycroftSkill):
                 self.speak_dialog('installed_OK')
                 return True
             except Exception:
-                self.log.info("Theia not installed-something went wrong!")
+                self.log.info("Theia not installed - something went wrong!")
                 self.speak_dialog('installed_BAD')
                 return False
 
