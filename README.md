@@ -26,14 +26,15 @@ You then get access to the THEIA IDE in a workplace located /opt/mycroft/skills.
 
 Skillsettings on https://home.mycroft.ai/ have one checkboks for setting auto start or not.
 
+
+## Updating
+For now, to update the THEIA IDE remove and reinstall this skill.
+
 ## Mark 1
 On Mark_ the firewall needs to be open. SSH to your mark_1 and run the follow command
 ```
 sudo ufw allow from any to any port 3000 proto tcp
 ```
-
-## Updating THEIA IDE
-For now, to update the THEIA IDE remove and reinstall this skill.
 
 ## Examples
 * "Start IDE"
