@@ -18,7 +18,7 @@ class TheiaIde(MycroftSkill):
         if self.settings.get("theia installed") is not True or self.settings.get("theia installed") is None:
             self.install_theia()
         if self.settings.get("auto_start") is True:
-            self.handle_ide_start()
+            self.run_theia()
 
     @intent_file_handler('ide.theia.intent')
     def handle_ide_theia(self, message):
@@ -34,13 +34,19 @@ class TheiaIde(MycroftSkill):
 
     @intent_file_handler('start.intent')
     def handle_ide_start(self, message):
-        if self.theia_process is None and not self.process_exists("theia_run"):
-            self.log.info("Starting IDE")
-            self.theia_process = subprocess.Popen(self.SafePath + '/theia_run.sh ' +
-                                                  self.SafePath, preexec_fn=os.setsid, shell=True)
+        if self.run_theia():
             self.speak_dialog('IDE started')
         else:
             self.speak_dialog('IDE alreddy running')
+
+    def run_theia(self):
+        if self.theia_process is None and not self.process_exists("theia_run.sh"):
+            self.log.info("Starting IDE")
+            self.theia_process = subprocess.Popen(self.SafePath + '/theia_run.sh ' +
+                                                  self.SafePath, preexec_fn=os.setsid, shell=True)
+            return True
+        else:
+            return False
 
     def install_theia(self):
         platform = self.config_core.get('enclosure', {}).get('platform')
@@ -67,11 +73,13 @@ class TheiaIde(MycroftSkill):
                 self.log.info("Installed OK")
                 self.settings['theia installed'] = 'True'
                 self.speak_dialog('installed_OK')
+                return True
             except Exception:
                 self.log.info("Theia not installed-something went wrong!")
                 self.speak_dialog('installed_BAD')
+                return False
 
-    def process_exists(proc_name):
+    def process_exists(self, proc_name):
         tmp = os.popen("ps -ax | grep " + proc_name).read()
         proccount = tmp.count(proc_name)
         if proccount > 1:
