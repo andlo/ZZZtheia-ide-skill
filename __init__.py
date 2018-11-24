@@ -1,6 +1,7 @@
 from mycroft import MycroftSkill, intent_file_handler
 from shutil import copyfile
 import os
+import re
 import tarfile
 import wget
 import subprocess
@@ -35,7 +36,7 @@ class TheiaIde(MycroftSkill):
 
     @intent_file_handler('start.intent')
     def handle_ide_start(self, message):
-        if self.theia_process is None:
+        if self.theia_process is None and not self.process_exists("theia_run"):
             self.log.info("Starting IDE")
             self.theia_process = subprocess.Popen(self.SafePath + '/theia_run.sh ' +
                                                   self.SafePath, preexec_fn=os.setsid, shell=True)
@@ -72,6 +73,21 @@ class TheiaIde(MycroftSkill):
                 self.log.info("Theia not installed-something went wrong!")
                 self.speak_dialog('installed_BAD')
 
+    def process_exists(proc_name):
+        tmp = os.popen("ps -ax | grep " + proc_name).read()
+        proccount = tmp.count(proc_name)
+        if proccount > 1:
+            return True
+        else:
+            return False
+
+        for line in output.split("\n"):
+            res = re.findall("(\d+) (.*)", line)
+            if res:
+                pid = int(res[0][0])
+                if proc_name in res[0][1] and pid != os.getpid() and pid != ps_pid:
+                    return True
+        return False
 
 def create_skill():
     return TheiaIde()
