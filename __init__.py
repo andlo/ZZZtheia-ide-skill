@@ -15,7 +15,7 @@ class TheiaIde(MycroftSkill):
         self.log.info("Initialize THEIA IDE...")
         self.SafePath = self.file_system.path
         self.theia_process = None
-        if not self.settings.get("theia installed") is True or self.settings.get("theia installed") is None:
+        if self.settings.get("theia installed") is not True or self.settings.get("theia installed") is None:
             self.install_theia()
         if self.settings.get("auto_start") is True:
             self.handle_ide_start()
