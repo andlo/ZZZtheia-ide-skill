@@ -1,7 +1,6 @@
 from mycroft import MycroftSkill, intent_file_handler
 from shutil import copyfile
 import os
-import re
 import tarfile
 import wget
 import subprocess
@@ -32,7 +31,6 @@ class TheiaIde(MycroftSkill):
         if self.theia_process is not None:
             self.theia_process = None
         self.speak_dialog('IDE stopped')
-
 
     @intent_file_handler('start.intent')
     def handle_ide_start(self, message):
@@ -81,13 +79,6 @@ class TheiaIde(MycroftSkill):
         else:
             return False
 
-        for line in output.split("\n"):
-            res = re.findall("(\d+) (.*)", line)
-            if res:
-                pid = int(res[0][0])
-                if proc_name in res[0][1] and pid != os.getpid() and pid != ps_pid:
-                    return True
-        return False
 
 def create_skill():
     return TheiaIde()
