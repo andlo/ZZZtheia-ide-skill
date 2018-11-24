@@ -26,11 +26,10 @@ class TheiaIde(MycroftSkill):
 
     @intent_file_handler('stop.intent')
     def handle_ide_stop(self, message):
-        self.log.info("Stopping IDE")
-        os.killpg(self.theia_process.pid, signal.SIGKILL)
-        if self.theia_process is not None:
-            self.theia_process = None
-        self.speak_dialog('IDE stopped')
+        if self.stop_theia():
+            self.speak_dialog('IDE stopped')
+        else:
+            self.speak_dialog('IDE is not running')
 
     @intent_file_handler('start.intent')
     def handle_ide_start(self, message):
@@ -38,6 +37,22 @@ class TheiaIde(MycroftSkill):
             self.speak_dialog('IDE started')
         else:
             self.speak_dialog('IDE alreddy running')
+
+    @intent_file_handler('restart.intent')
+    def handle_ide_restart(self, message):
+        self.stop_theia()
+        if self.run_theia():
+            self.speak_dialog('IDE restarted')
+
+    def stop_theia(self):
+        self.log.info("Stopping IDE")
+        if self.theia_process is not None and self.process_exists("theia_run.sh"):
+            os.killpg(self.theia_process.pid, signal.SIGKILL)
+            if self.theia_process is not None:
+                self.theia_process = None
+            return True
+        else:
+            return False
 
     def run_theia(self):
         if self.theia_process is None and not self.process_exists("theia_run.sh"):
@@ -82,7 +97,7 @@ class TheiaIde(MycroftSkill):
     def process_exists(self, proc_name):
         tmp = os.popen("ps -ax | grep " + proc_name).read()
         proccount = tmp.count(proc_name)
-        if proccount > 1:
+        if proccount > 2:
             return True
         else:
             return False
