@@ -7,6 +7,7 @@ import subprocess
 import signal
 
 
+
 class TheiaIde(MycroftSkill):
     def __init__(self):
         MycroftSkill.__init__(self)
@@ -14,11 +15,11 @@ class TheiaIde(MycroftSkill):
     def initialize(self):
         self.log.info("Initialize THEIA IDE...")
         self.SafePath = self.file_system.path
-        if not self.process_exists("theia_run.sh"):
-            self.theia_process = None
         if self.settings.get("theia installed") is not True or self.settings.get("theia installed") is None:
             self.install_theia()
-        if self.settings.get("auto_start") is True:
+        if not self.pid_exists(self.settings.get("theia_pid")):
+            self.settings["theia_pid"] = None
+        if self.settings.get("auto_start") and self.settings.get("theia_pid") is None:
             self.run_theia()
 
     @intent_file_handler('stop.intent')
@@ -30,7 +31,7 @@ class TheiaIde(MycroftSkill):
 
     @intent_file_handler('start.intent')
     def handle_ide_start(self, message):
-        url = "http://" + os.getenv('HOSTNAME') + ":3000"
+        url = "http://" + os.uname().nodename + ":3000"
         if self.run_theia():
             self.speak_dialog('ide_started', data={"url": url})
         else:
@@ -38,26 +39,26 @@ class TheiaIde(MycroftSkill):
 
     @intent_file_handler('restart.intent')
     def handle_ide_restart(self, message):
-        url = "http://" + os.getenv('HOSTNAME') + ":3000"
+        url = "http://" + os.uname().nodename + ":3000"
         self.stop_theia()
         if self.run_theia():
             self.speak_dialog('ide_started', data={"url": url})
 
     def stop_theia(self):
         self.log.info("Stopping IDE")
-        if self.theia_process is not None and self.process_exists("theia_run.sh"):
-            os.killpg(self.theia_process.pid, signal.SIGKILL)
-            if self.theia_process is not None:
-                self.theia_process = None
+        if self.settings.get("theia_pid") is not None:
+            os.killpg(self.settings.get("theia_pid"), signal.SIGTERM)
+            self.settings["theia_pid"] = None
             return True
         else:
             return False
 
     def run_theia(self):
-        if self.theia_process is None and not self.process_exists("theia_run.sh"):
+        if self.settings.get("theia_pid)") is None:
             self.log.info("Starting IDE")
-            self.theia_process = subprocess.Popen(self.SafePath + '/theia_run.sh ' +
-                                                  self.SafePath, preexec_fn=os.setsid, shell=True)
+            theia_proc = subprocess.Popen(self.SafePath + '/theia_run.sh ' +
+                                          self.SafePath, preexec_fn=os.setsid, shell=True)
+            self.settings["theia_pid"] = theia_proc.pid
             return True
         else:
             return False
@@ -91,12 +92,11 @@ class TheiaIde(MycroftSkill):
                 self.speak_dialog('installed_BAD')
                 return False
 
-    def process_exists(self, proc_name):
-        tmp = os.popen("ps -ax | grep " + proc_name).read()
-        proccount = tmp.count(proc_name)
-        if proccount > 2:
+    def pid_exists(self, pid):
+        try:
+            os.kill(pid, 0)
             return True
-        else:
+        except Exception:
             return False
 
 
