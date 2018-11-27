@@ -26,6 +26,8 @@ You then get access to the THEIA IDE in a workplace located /opt/mycroft/skills.
 
 Skillsettings on https://home.mycroft.ai/ have one checkboks for setting auto start or not.
 
+WARNING: There is not any password protection to access the IDE and the integrated terminal.
+So think twise before exposing your device to the internet.
 
 ## Updating
 For now, to update the THEIA IDE remove and reinstall this skill.
@@ -35,6 +37,21 @@ On Mark_ the firewall needs to be open. SSH to your mark_1 and run the follow co
 ```
 sudo ufw allow from any to any port 3000 proto tcp
 ```
+
+## Git integration
+The IDE dosnt have a way to ask your username and password to github. So to get integration to work seamsly,
+you can set git to remember your username and password.
+
+This is done by these three git commands andcan be done in the terminal direcly in the IDE.
+```
+git config --global credential.helper store
+git config --global user.name "your_username"
+git config --global user.password "your_password"
+```
+WARNING: Your git account passwords will be saved in plaintext format, in the global
+.gitconfig file, e.g in /home/pi/.gitconfig
+If this is undesirable to you, use an ssh key for your accounts instead.
+
 
 ## Examples
 * "Start IDE"
