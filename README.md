@@ -47,6 +47,14 @@ Andreas Lorensen (@andlo)
 ## Supported Devices
 platform_mark1 platform_picroft
 
+## Licensing
+This skill it self is licensed by GNU GENERAL PUBLIC LICENSE Version 3 - https://github.com/andlo/theia-ide-skill/blob/master/LICENSE
+
+The skill will install other software which by them self have individualy and different licenses.
+* Theia-ide is licensed by Eclipse Public License version  2 - https://github.com/theia-ide/theia/blob/master/LICENSE
+* Git is licensed by GNU GENERAL PUBLIC LICENSE Version 2 - https://github.com/git/git/blob/master/COPYING
+* Node.js seems to have its own license - https://github.com/nodejs/node/blob/master/LICENSE
+
 ## Category
 **Configuration**
 
