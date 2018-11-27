@@ -30,7 +30,7 @@ class TheiaIde(MycroftSkill):
 
     @intent_file_handler('start.intent')
     def handle_ide_start(self, message):
-        url = "http://" + os.uname().nodename + ":3000"
+        url = os.uname().nodename + " kolon 3000"
         if self.run_theia():
             self.speak_dialog('ide_started', data={"url": url})
         else:
@@ -38,7 +38,7 @@ class TheiaIde(MycroftSkill):
 
     @intent_file_handler('restart.intent')
     def handle_ide_restart(self, message):
-        url = "http://" + os.uname().nodename + ":3000"
+        url = os.uname().nodename + " kolon 3000"
         self.stop_theia()
         if self.run_theia():
             self.speak_dialog('ide_started', data={"url": url})
@@ -85,6 +85,9 @@ class TheiaIde(MycroftSkill):
                 self.log.info("Installed OK")
                 self.settings['theia installed'] = 'True'
                 self.speak_dialog('installed_OK')
+                if self.settings.get("auto_start"):
+                    url = os.uname().nodename + " kolon 3000"
+                    self.speak_dialog('ide_started', data={"url": url})
                 return True
             except Exception:
                 self.log.info("Theia not installed - something went wrong!")
