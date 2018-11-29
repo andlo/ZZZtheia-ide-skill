@@ -71,10 +71,8 @@ class TheiaIde(MycroftSkill):
             self.speak_dialog('downloading', data={"platform": platform})
             if platform == "picroft":
                 url = 'https://github.com/andlo/theia-for-mycroft/releases/download/THEIA-for-Mycroft/theiaide-picroft.tgz'
-                if int(open("/etc/debian_version").read(1)) is not 9:
-                    self.log.error("Raspbian Jessie isn't a supported platform. Please upgrade your Picroft.")
-                    self.speak_dialog("platform_not_supportet")
-                    return False
+                if int(open("/etc/debian_version").read(1)) is 8:
+                    url = 'https://github.com/andlo/theia-for-mycroft/releases/download/THEIA-for-Mycroft/theiaide-mark1.tgz'
             if platform == "mycroft_mark_1":
                 url = 'https://github.com/andlo/theia-for-mycroft/releases/download/THEIA-for-Mycroft/theiaide-mark1.tgz'
             try:
