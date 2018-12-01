@@ -34,7 +34,7 @@ class TheiaIde(MycroftSkill):
         if self.run_theia():
             self.speak_dialog('ide_started', data={"url": url})
         else:
-            self.speak_dialog('ide_alreddy_running', data={"url": url})
+            self.speak_dialog('ide_already_running', data={"url": url})
 
     @intent_file_handler('restart.intent')
     def handle_ide_restart(self, message):
