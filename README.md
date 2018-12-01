@@ -2,10 +2,10 @@
 VS Code experience on your Mycroft device.
 
 ## About
-Installs and setup THEIA IDE localy on your Mycroft device.
+Installs and setup THEIA IDE locally on your Mycroft device.
 
 ## Description
-This skill installs Theia IDE on your Mycroft device. This makes it easy to make and edit skills for Mycroft. Thiea IDE integrates whith Github, and you can use mycroft tools like mycroft-msm and mycroft-msk directly from the integrated shell in the IDE.
+This skill installs Theia IDE on your Mycroft device. This makes it easy to make and edit skills for Mycroft. Theia IDE integrates with Github, and you can use Mycroft tools like mycroft-msm and mycroft-msk directly from the integrated shell in the IDE.
 Theia provides the VS Code experience in the browser.
 People familiar with Microsoft's VS Code editor will find many familiar features and concepts.
 
@@ -18,31 +18,31 @@ Install the skill by running this command
 ```
 mycroft-msm install https://github.com/andlo/theia-ide-skill.git
 ```
-Skill will then install THEIA IDE. Duing installation a precompiled package is downloaded and extracted.
+Skill will then install THEIA IDE. During installation a precompiled package is downloaded and extracted.
 
-When done, there should be a log info saying "Starting THEIA IDE" and Mycrot should tell you by voice that he has installed the skill.
-You can then open a web-browser and gå to http://picroft:3000 if your Mycroft device is picroft. If on a Mark One go to http://mark_1:3000
+When done, there should be a log info saying "Starting THEIA IDE" and Mycroft should tell you by voice that he has installed the skill.
+You can then open a web-browser and go to http://picroft:3000 if your Mycroft device is picroft. If on a Mark One go to http://mark_1:3000
 You then get access to the THEIA IDE in a workplace located /opt/mycroft/skills.
 
-Skillsettings on https://home.mycroft.ai/ have one checkboks for setting auto start or not.
+Skillsettings on https://home.mycroft.ai/ have one checkbox for setting autostart or not.
 
 WARNING: There is not any password protection to access the IDE and the integrated terminal.
-So think twise before exposing your device to the internet.
+So think twice before exposing your device to the internet.
 
 ## Updating
 For now, to update the THEIA IDE remove and reinstall this skill.
 
 ## Mark 1
-On Mark_ the firewall needs to be open. SSH to your mark_1 and run the follow command
+On Mark_1 the firewall needs to be open. SSH to your Mark_1 and run the follow command
 ```
 sudo ufw allow from any to any port 3000 proto tcp
 ```
 
 ## Git integration
-The IDE dosnt have a way to ask your username and password to github. So to get integration to work seamsly,
+The IDE doesn't have a way to ask your username and password to github. So to get integration to work seamlessly,
 you can set git to remember your username and password.
 
-This is done by these three git commands andcan be done in the terminal direcly in the IDE.
+This is done by these three git commands and can be done in the terminal direcly in the IDE.
 ```
 git config --global credential.helper store
 git config --global user.name "your_username"

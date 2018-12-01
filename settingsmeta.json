@@ -7,7 +7,7 @@
                 "fields": [
                     {
                         "name": "auto_start",
-                        "label": "Auto start ide",
+                        "label": "Autostart IDE",
                         "type": "checkbox",
                         "value": "true"
                     }
