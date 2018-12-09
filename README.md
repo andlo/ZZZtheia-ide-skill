@@ -54,8 +54,8 @@ If this is undesirable to you, use an ssh key for your accounts instead.
 
 
 ## Examples
-* "Start IDE"
-* "Stop IDE"
+* "Activate IDE"
+* "Deactivate IDE"
 * "Restart IDE"
 
 ## Credits
