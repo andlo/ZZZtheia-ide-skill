@@ -73,7 +73,7 @@ The skill will install other software which by them self have individualy and di
 * Node.js seems to have its own license - https://github.com/nodejs/node/blob/master/LICENSE
 
 ## Category
-**Configuration**
+**Productivity**
 
 ## Tags
 #theia
