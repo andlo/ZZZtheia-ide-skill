@@ -93,6 +93,8 @@ class TheiaIde(MycroftSkill):
                     url = 'https://github.com/andlo/theia-for-mycroft/releases/download/THEIA-for-Mycroft/theiaide-mark1.tgz'
             if platform == "mycroft_mark_1":
                 url = 'https://github.com/andlo/theia-for-mycroft/releases/download/THEIA-for-Mycroft/theiaide-mark1.tgz'
+            if platform == "mycroft_mark_2":
+                url = 'https://github.com/domcross/theia-for-mycroft/releases/download/THEIA-for-Mycroft/theiaide-mark2.tgz'
             try:
                 filename = wget.download(url, self.SafePath + '/theiaide.tgz')
                 self.log.info("Unpacking....")
