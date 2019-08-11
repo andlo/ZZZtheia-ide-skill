@@ -1,2 +1,2 @@
-python-language-server[all]
 wget
+ptvsd
