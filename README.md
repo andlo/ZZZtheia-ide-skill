@@ -2,17 +2,18 @@
 Installs and setup THEIA IDE locally on your device. Real VS Code experience.
 
 
-## Description
-This skill installs Theia IDE on your Mycroft device. This makes it easy to make and edit skills for Mycroft. Theia IDE integrates with Github, and you can use Mycroft tools like mycroft-msm and mycroft-msk directly from the integrated shell in the IDE.
-Theia provides the VS Code experience in the browser.
-People familiar with Microsoft's VS Code editor will find many familiar features and concepts.
+## About
+This skill installs Theia IDE on your Mycroft device. This is an easy way to make and edit skills 
+with integratio to Github, and tools like mycroft-msm and mycroft-msk directly from the integrated 
+shell.
+Theia provides Microsoft VS Code experience in the browser.
 
 https://www.theia-ide.org/index.html
 
 <img src='screenshot.png' card_color='#40DBB0' width=800 style='vertical-align:bottom'/>
 
 ## How to install
-Install the skill from the market or by running this command
+Install the skill from the market or say "Hey Mycroft, install I D E" or by running this command
 ```
 mycroft-msm install https://github.com/andlo/theia-ide-skill.git
 ```
@@ -28,19 +29,19 @@ WARNING: There is not any password protection to access the IDE and the integrat
 So think twice before exposing your device to the internet.
 
 ## Git integration
-The IDE dosnt have a way to ask your username and password to github. So to get integration to work seamsly,
-you can set git to remember your username and password.
+The IDE does not have a way to ask for your Github username and password. For seamless integration, 
+you can set Git to remember your username and password by entering three git commands.
+This can be done in the terminal directly in the IDE.
 
-This is done by these three git commands andcan be done in the terminal direcly in the IDE.
 ```
 git config --global credential.helper store
 git config --global user.name "your_username"
 git config --global user.password "your_password"
 ```
+
 WARNING: Your git account passwords will be saved in plaintext format, in the global
 .gitconfig file, e.g in /home/pi/.gitconfig
 If this is undesirable to you, use an ssh key for your accounts instead.
-
 
 
 ## Updating
