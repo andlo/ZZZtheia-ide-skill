@@ -108,8 +108,7 @@ class TheiaIde(MycroftSkill):
                 precompiled = True
 
             else:
-
-                self.log.info('Platform ' + platform + ' - no precompiled package')
+                self.log.info('Platform ' + str(platform) + ' - no precompiled package')
                 self.speak_dialog('cloning', data={"platform": platform})
                 memory = int(virtual_memory().total/(1024**2))
                 if memmory < 4000:
