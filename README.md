@@ -6,6 +6,7 @@ Installs and setup THEIA IDE locally on your device. Real VS Code experience.
 This skill installs Theia IDE on your Mycroft device. This is an easy way to make and edit skills 
 with integratio to Github, and tools like mycroft-msm and mycroft-msk directly from the integrated 
 shell.
+
 Theia provides Microsoft VS Code experience in the browser.
 
 https://www.theia-ide.org/index.html
@@ -17,11 +18,14 @@ Install the skill from the market or say "Hey Mycroft, install I D E" or by runn
 ```
 mycroft-msm install https://github.com/andlo/theia-ide-skill.git
 ```
-Skill will then install THEIA IDE. During installation a precompiled package is downloaded and extracted.
+Skill will then install THEIA IDE. During installation if on Picroft a precompiled package is 
+downloaded and extracted. On other platforms THEIA IDE is build and compiled during installation.
+The IDE can not run on Mark_1 and will not instal on low ressource systems - minimum is 4096 Mb ram.
 
-When done, there should be a log info saying "Starting THEIA IDE" and Mycroft should tell you by voice that he has installed the skill.
-You can then open a web-browser and go to http://picroft:3000 if your Mycroft device is picroft. If on a Mark One go to http://mark_1:3000
-You then get access to the THEIA IDE in a workplace located /opt/mycroft/skills.
+After installation, there should be a log info saying "Installed THEIA IDE OK." and Mycroft should tell 
+you by voice that he has installed the skill.
+You can then open a web-browser and go to http://device:3000 where device is the hostname of the device.
+Ff your Mycroft device is picroft the hostnale is picroft. 
 
 Skillsettings on https://home.mycroft.ai/ have one checkbox for setting autostart or not.
 
@@ -49,15 +53,12 @@ For now, to update the THEIA IDE remove and reinstall this skill.
 
 
 ## Examples
-* "Activate IDE"
-* "Deactivate IDE"
+* "Run IDE"
+* "End theia IDE"
 * "Restart IDE"
 
 ## Credits
 Andreas Lorensen (@andlo)
-
-## Supported Devices
-platform_picroft
 
 ## Licensing
 This skill it self is licensed by GNU GENERAL PUBLIC LICENSE Version 3 - https://github.com/andlo/theia-ide-skill/blob/master/LICENSE
