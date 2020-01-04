@@ -118,7 +118,7 @@ class TheiaIde(MycroftSkill):
                 else:
                     self.log.info('Downloading and compiling')
                     self.log.info("Cloning and build package for the " + platform + " platform.")
-                    proc = subprocess.Popen('git clone https://github.com/andlo/theia-for-mycroft.git',
+                    proc = subprocess.Popen('git clone https://github.com/andlo/theia-for-mycroft.git '+ self.SafePath,
                                             cwd=self.SafePath, preexec_fn=os.setsid, shell=True)
                     precompiled = False
             try:
