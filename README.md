@@ -11,7 +11,7 @@ Theia provides Microsoft VS Code experience in the browser.
 
 https://www.theia-ide.org/index.html
 
-<img src='screenshot.png' card_color='#40DBB0' width=800 style='vertical-align:bottom'/>
+<img src='https://raw.githubusercontent.com/andlo/theia-ide-skill/master/screenshot.png' card_color='#40DBB0' width=800 style='vertical-align:bottom'/>
 
 ## How to install
 Install the skill from the market or say "Hey Mycroft, install I D E" or by running this command
@@ -25,7 +25,7 @@ The IDE can not run on Mark_1 and will not instal on low ressource systems - min
 After installation, there should be a log info saying "Installed THEIA IDE OK." and Mycroft should tell 
 you by voice that he has installed the skill.
 You can then open a web-browser and go to http://device:3000 where device is the hostname of the device.
-Ff your Mycroft device is picroft the hostnale is picroft. 
+If your Mycroft device is picroft the hostnale is picroft. 
 
 Skillsettings on https://home.mycroft.ai/ have one checkbox for setting autostart or not.
 
