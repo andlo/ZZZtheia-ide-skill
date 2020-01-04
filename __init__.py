@@ -122,6 +122,11 @@ class TheiaIde(MycroftSkill):
                     proc = subprocess.Popen('git clone https://github.com/andlo/theia-for-mycroft.git .',
                                             cwd=self.SafePath, preexec_fn=os.setsid, shell=True)
                     proc.wait
+                    folder = self.SafePath + 'theia-for-mycroft'
+                    files = os.listdir(folder)
+                    for f in files:
+                        shutil.move(folder, self.SafePath)
+                    shutil.rmtree(folder)
                     precompiled = False
             try:
                 if precompiled is True:
