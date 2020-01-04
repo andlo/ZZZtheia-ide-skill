@@ -21,6 +21,7 @@ import os
 import tarfile
 import subprocess
 import signal
+import shutil
 from psutil import virtual_memory
 
 
@@ -118,6 +119,7 @@ class TheiaIde(MycroftSkill):
                 else:
                     self.log.info('Downloading and compiling')
                     self.log.info("Cloning and build package for the " + platform + " platform.")
+                    shutil.rmtree(self.SafePath)
                     proc = subprocess.Popen('git clone https://github.com/andlo/theia-for-mycroft.git '+ self.SafePath,
                                             cwd=self.SafePath, preexec_fn=os.setsid, shell=True)
                     proc.wait
