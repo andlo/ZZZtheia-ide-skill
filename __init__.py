@@ -86,6 +86,8 @@ class TheiaIde(MycroftSkill):
 
     def install_theia(self):
         platform = self.config_core.get('enclosure', {}).get('platform')
+        if platform is None:
+            platforn = 'Unknown'
         if not os.path.isfile(self.SafePath + '/theia_run.sh'):
             self.speak_dialog('install_start')
             GitRepo = 'https://api.github.com/repos/andlo/theia-for-mycroft/releases/latest'
@@ -106,6 +108,7 @@ class TheiaIde(MycroftSkill):
                 precompiled = True
 
             else:
+
                 self.log.info('Platform ' + platform + ' - no precompiled package')
                 self.speak_dialog('cloning', data={"platform": platform})
                 memory = int(virtual_memory().total/(1024**2))
