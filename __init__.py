@@ -16,13 +16,14 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-from mycroft import MycroftSkill, intent_file_handler
+from mycroft import MycroftSkill, intent_file_handler, MYCROFT_ROOT_PATH
 from shutil import copyfile
 import os
 import tarfile
 import wget
 import subprocess
 import signal
+from psutil import virtual_memory
 
 
 class TheiaIde(MycroftSkill):
@@ -73,46 +74,66 @@ class TheiaIde(MycroftSkill):
     def run_theia(self):
         if self.settings.get("theia_pid)") is None:
             self.log.info("Starting IDE")
-            theia_proc = subprocess.Popen(self.SafePath + '/theia_run.sh ' +
-                                          self.SafePath, preexec_fn=os.setsid, shell=True)
+            theia_proc = subprocess.Popen(self.SafePath + '/theia_run.sh ' + MYCROFT_ROOT_PATH,
+                                          cwd = self.SafePath, preexec_fn=os.setsid, shell=True)
             self.settings["theia_pid"] = theia_proc.pid
             return True
         else:
             return False
-
     def install_theia(self):
         platform = self.config_core.get('enclosure', {}).get('platform')
         if not os.path.isfile(self.SafePath + '/theia_run.sh'):
             self.speak_dialog('install_start')
-            self.log.info(
-                "Downloading precompiled package for the " + platform + " platform.")
+            self.log.info("Downloading precompiled package for the " + platform + " platform.")
             self.speak_dialog('downloading', data={"platform": platform})
-            if platform == "picroft":
-                url = 'https://github.com/andlo/theia-for-mycroft/releases/download/THEIA-for-Mycroft/theiaide-picroft.tgz'
-                if int(open("/etc/debian_version").read(1)) is 8:
-                    url = 'https://github.com/andlo/theia-for-mycroft/releases/download/THEIA-for-Mycroft/theiaide-mark1.tgz'
-            if platform == "mycroft_mark_1":
-                url = 'https://github.com/andlo/theia-for-mycroft/releases/download/THEIA-for-Mycroft/theiaide-mark1.tgz'
+            GitRepo = 'https://api.github.com/repos/andlo/theia-for-mycroft/releases/latest'
+            if platform is "mycroft_mark_1":
+                self.log.info('Platform Mark_1 - ThiaIDE cant run on a this device')
+                self.speak_dialog('cant.install.on.mark1')
+                self.settings['theia installed'] = 'False'
+                return
+            elif platform is "picroft":
+                self.log.info('Platform Picroft - downloading precompiled package')
+                proc = subprocess.Popen('curl -s ' ´GitRepo + ' | jq -r ".assets[] ' + 
+                                        ' | select(.name | contains(\"picroft\")) ' +
+                                        ' | .browser_download_url" | wget -O theiaide.tgz -i - ',
+                                        cwd = self.SafePath, preexec_fn=os.setsid, shell=True)
+                proc.wait()
+                precompiled = True
+
+            else:
+                self.log.info('Platform ' + platform + ' - no precompiled package')
+                memory = int(virtual_memory().total/(1024**2))
+                if memory < 4096:
+                    self.log.info('Memmory on device is ' + memmory + ' that is not enough.'')
+                    self.log.info('Sorry.')
+                    self.speak_dialog('cant.install.low.memmory')
+                else:
+                    self.log.info('Downloading and compiling')
+                    proc = subprocess.Popen('git clone https://github.com/andlo/theia-for-mycroft.git',
+                                            cwd = self.SafePath, preexec_fn=os.setsid, shell=True)
+                    precompiled = False 
             try:
-                filename = wget.download(url, self.SafePath + '/theiaide.tgz')
-                self.log.info("Unpacking....")
-                package = tarfile.open(filename)
-                package.extractall(self.SafePath)
-                package.close()
-                os.remove(filename)
-                copyfile(self._dir + '/files/.editorconfig',
-                         '/opt/mycroft/skills/.editorconfig')
+                if precompiled is True:
+                    filename = self.SafePath + '/theiaide.tgz'
+                    self.log.info("Unpacking....")
+                    package = tarfile.open(filename)
+                    package.extractall(self.SafePath)
+                    package.close()
+                    os.remove(filename)
+                if precompiled is False:
+                    self.log.info("Compiling THEIA IDE  - This can take a while....")
+                    proc = subprocess.Popen(self.SafePath + '/build_release.sh',
+                                          cwd = self.SafePath, preexec_fn=os.setsid, shell=True)
                 self.log.info("Installed OK")
                 self.settings['theia installed'] = 'True'
                 self.speak_dialog('installed_OK')
-                if self.settings.get("auto_start"):
-                    url = os.uname().nodename + " kolon 3000"
-                    self.speak_dialog('ide_started', data={"url": url})
                 return True
             except Exception:
                 self.log.info("Theia not installed - something went wrong!")
                 self.speak_dialog('installed_BAD')
                 return False
+
 
     def pid_exists(self, pid):
         try:
