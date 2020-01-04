@@ -60,11 +60,15 @@ class TheiaIde(MycroftSkill):
         if self.run_theia():
             self.speak_dialog('ide_started', data={"url": url})
 
-
     def stop_theia(self):
         self.log.info("Stopping IDE")
         if self.settings.get("theia_pid") is not None:
-            os.killpg(self.settings.get("theia_pid"), signal.SIGTERM)
+            try:
+                os.killpg(self.settings.get("theia_pid"), signal.SIGTERM)
+            except Exception:
+                proc = subprocess.Popen('pkill -f "yarn theia start"',
+                                        cwd = self.SafePath, preexec_fn=os.setsid, shell=True)
+                proc.wait()
             self.settings["theia_pid"] = None
             return True
         else:
