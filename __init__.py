@@ -17,10 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 from mycroft import MycroftSkill, intent_file_handler, MYCROFT_ROOT_PATH
-from shutil import copyfile
 import os
 import tarfile
-import wget
 import subprocess
 import signal
 from psutil import virtual_memory
@@ -80,20 +78,20 @@ class TheiaIde(MycroftSkill):
             return True
         else:
             return False
+
     def install_theia(self):
         platform = self.config_core.get('enclosure', {}).get('platform')
         if not os.path.isfile(self.SafePath + '/theia_run.sh'):
             self.speak_dialog('install_start')
-            self.log.info("Downloading precompiled package for the " + platform + " platform.")
-            self.speak_dialog('downloading', data={"platform": platform})
             GitRepo = 'https://api.github.com/repos/andlo/theia-for-mycroft/releases/latest'
             if platform is "mycroft_mark_1":
                 self.log.info('Platform Mark_1 - ThiaIDE cant run on a this device')
-                self.speak_dialog('cant.install.on.mark1')
+                self.speak_dialog('platform_not_supported')
                 self.settings['theia installed'] = 'False'
                 return
             elif platform == "picroft":
-                self.log.info('Platform Picroft - downloading precompiled package')
+                self.log.info("Downloading precompiled package for the " + platform + " platform.")
+                self.speak_dialog('downloading', data={"platform": platform})
                 proc = subprocess.Popen('curl -s ' + GitRepo + ' | jq -r ".assets[] ' + 
                                         ' | select(.name | contains(\\"picroft\\")) ' +
                                         ' | .browser_download_url" | wget -O theiaide.tgz -i - ' +
@@ -104,6 +102,7 @@ class TheiaIde(MycroftSkill):
 
             else:
                 self.log.info('Platform ' + platform + ' - no precompiled package')
+                self.speak_dialog('cloning', data={"platform": platform})
                 memory = int(virtual_memory().total/(1024**2))
                 if memmory < 4000:
                     self.log.info('Memmory on device is ' + memmory + ' that is not enough.')
@@ -111,6 +110,7 @@ class TheiaIde(MycroftSkill):
                     self.speak_dialog('cant.install.low.memmory')
                 else:
                     self.log.info('Downloading and compiling')
+                    self.log.info("Cloning and build package for the " + platform + " platform.")
                     proc = subprocess.Popen('git clone https://github.com/andlo/theia-for-mycroft.git',
                                             cwd=self.SafePath, preexec_fn=os.setsid, shell=True)
                     precompiled = False 
@@ -124,7 +124,7 @@ class TheiaIde(MycroftSkill):
                     os.remove(filename)
                 if precompiled is False:
                     self.log.info("Compiling THEIA IDE  - This can take a while....")
-                    proc = subprocess.Popen(self.SafePath + '/build_release.sh',
+                    proc = subprocess.Popen(self.SafePath + '/build_release.sh >/dev/null 2>/dev/null',
                                           cwd=self.SafePath, preexec_fn=os.setsid, shell=True)
                 self.log.info("Installed OK")
                 self.settings['theia installed'] = 'True'
@@ -134,7 +134,6 @@ class TheiaIde(MycroftSkill):
                 self.log.info("Theia not installed - something went wrong!")
                 self.speak_dialog('installed_BAD')
                 return False
-
 
     def pid_exists(self, pid):
         try:
