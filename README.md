@@ -9,6 +9,19 @@ shell.
 
 Theia provides Microsoft VS Code experience in the browser.
 
+# New in this release
+* Update Theia to 0.14.0
+* installer rewrite so picroft is downloading precompiled package and prepaired for other precompiled
+packages for other platforms.
+* Installer Builds and compile on systems where there isnt precompiled package for if system has more
+than 4 Gb memmory.
+* No more support for Mark_1 as debian jessie isnt supported and theia cant build properly. 
+* Change to default open workspace in mycroft.core directory
+* Debug is working by using PTVSD, but requere remote-debug skill to activate debugadaptor and change 
+settings for padatious single_thread. remote-debug skills is at time of writing on way to market and PR to make
+a setting for controling padatious single_thread is on its way to mycroft.core. 
+ 
+
 https://www.theia-ide.org/index.html
 
 <img src='https://raw.githubusercontent.com/andlo/theia-ide-skill/master/screenshot.png' card_color='#40DBB0' width=800 style='vertical-align:bottom'/>
