@@ -119,7 +119,7 @@ class TheiaIde(MycroftSkill):
                 else:
                     self.log.info('Downloading and compiling')
                     self.log.info("Cloning and build package for the " + platform + " platform.")
-                    proc = subprocess.Popen('git clone https://github.com/andlo/theia-for-mycroft.git .',
+                    proc = subprocess.Popen('git clone https://github.com/andlo/theia-for-mycroft.git',
                                             cwd=self.SafePath, preexec_fn=os.setsid, shell=True)
                     proc.wait
                     folder = self.SafePath + '/theia-for-mycroft'
