@@ -110,8 +110,8 @@ class TheiaIde(MycroftSkill):
             else:
                 self.log.info('Platform ' + str(platform) + ' - no precompiled package')
                 self.speak_dialog('cloning', data={"platform": platform})
-                memory = int(virtual_memory().total/(1024**2))
-                if memmory < 4000:
+                mem = int(virtual_memory().total/(1024**2))
+                if mem < 4000:
                     self.log.info('Memmory on device is ' + memmory + ' that is not enough.')
                     self.log.info('Sorry.')
                     self.speak_dialog('cant.install.low.memmory')
