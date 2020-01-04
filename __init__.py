@@ -133,7 +133,7 @@ class TheiaIde(MycroftSkill):
                     os.remove(filename)
                 if precompiled is False:
                     self.log.info("Compiling THEIA IDE  - This can take a while....")
-                    proc = subprocess.Popen(self.SafePath + '/build_release.sh >/dev/null 2>/dev/null',
+                    proc = subprocess.Popen(self.SafePath + "/build_release.sh >/dev/null 2>/dev/null",
                                           cwd=self.SafePath, preexec_fn=os.setsid, shell=True)
                     proc.wait()
                 self.log.info("Installed OK")
