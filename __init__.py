@@ -92,26 +92,27 @@ class TheiaIde(MycroftSkill):
                 self.speak_dialog('cant.install.on.mark1')
                 self.settings['theia installed'] = 'False'
                 return
-            elif platform is "picroft":
+            elif platform == "picroft":
                 self.log.info('Platform Picroft - downloading precompiled package')
-                proc = subprocess.Popen('curl -s ' ´GitRepo + ' | jq -r ".assets[] ' + 
-                                        ' | select(.name | contains(\"picroft\")) ' +
-                                        ' | .browser_download_url" | wget -O theiaide.tgz -i - ',
-                                        cwd = self.SafePath, preexec_fn=os.setsid, shell=True)
+                proc = subprocess.Popen('curl -s ' + GitRepo + ' | jq -r ".assets[] ' + 
+                                        ' | select(.name | contains(\\"picroft\\")) ' +
+                                        ' | .browser_download_url" | wget -O theiaide.tgz -i - ' +
+                                        ' >/dev/null 2>/dev/null',
+                                        cwd=self.SafePath, preexec_fn=os.setsid, shell=True)
                 proc.wait()
                 precompiled = True
 
             else:
                 self.log.info('Platform ' + platform + ' - no precompiled package')
                 memory = int(virtual_memory().total/(1024**2))
-                if memory < 4096:
-                    self.log.info('Memmory on device is ' + memmory + ' that is not enough.'')
+                if memmory < 4000:
+                    self.log.info('Memmory on device is ' + memmory + ' that is not enough.')
                     self.log.info('Sorry.')
                     self.speak_dialog('cant.install.low.memmory')
                 else:
                     self.log.info('Downloading and compiling')
                     proc = subprocess.Popen('git clone https://github.com/andlo/theia-for-mycroft.git',
-                                            cwd = self.SafePath, preexec_fn=os.setsid, shell=True)
+                                            cwd=self.SafePath, preexec_fn=os.setsid, shell=True)
                     precompiled = False 
             try:
                 if precompiled is True:
@@ -124,7 +125,7 @@ class TheiaIde(MycroftSkill):
                 if precompiled is False:
                     self.log.info("Compiling THEIA IDE  - This can take a while....")
                     proc = subprocess.Popen(self.SafePath + '/build_release.sh',
-                                          cwd = self.SafePath, preexec_fn=os.setsid, shell=True)
+                                          cwd=self.SafePath, preexec_fn=os.setsid, shell=True)
                 self.log.info("Installed OK")
                 self.settings['theia installed'] = 'True'
                 self.speak_dialog('installed_OK')
