@@ -85,7 +85,7 @@ class TheiaIde(MycroftSkill):
             return False
 
     def install_theia(self):
-        platforn = 'Unknown'
+        platform = 'Unknown'
         if self.config_core.get('enclosure', {}).get('platform'):
             platform = self.config_core.get('enclosure', {}).get('platform')
         if not os.path.isfile(self.SafePath + '/theia_run.sh'):
