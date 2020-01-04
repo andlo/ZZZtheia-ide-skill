@@ -60,6 +60,7 @@ class TheiaIde(MycroftSkill):
         if self.run_theia():
             self.speak_dialog('ide_started', data={"url": url})
 
+
     def stop_theia(self):
         self.log.info("Stopping IDE")
         if self.settings.get("theia_pid") is not None:
