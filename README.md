@@ -16,7 +16,7 @@ https://github.com/andlo/theia-for-mycroft/
 * Installer Builds and compile on systems where there isnt precompiled package for if system has more
 than 4 Gb memmory.
 * No more support for Mark_1 as debian jessie isnt supported and theia cant build properly. 
-* Change to default open workspace in mycroft.core directory
+* Added workspace setting on home.mycroft.at. Default to skills directory.
 * Debug is working by using PTVSD, but requere remote-debug skill to activate and inject 
 debug adaptor https://github.com/andlo/remote-debug-skill and change settings for padatious
 single_thread. remote-debug skills is at time of writing on way to market and PR to makea setting
