@@ -106,7 +106,7 @@ class TheiaIde(MycroftSkill):
         if not os.path.isfile(SafePath + '/theia_run.sh'):
             self.speak_dialog('install_start')
             GitRepo = 'https://api.github.com/repos/andlo/theia-for-mycroft/releases/latest'
-            if platform != "mycroft_mark_1":
+            if platform == "mycroft_mark_1":
                 self.log.info('Platform Mark_1 - ThiaIDE cant run on a this device')
                 self.speak_dialog('platform_not_supported')
                 self.settings['theia installed'] = 'False'
