@@ -2,6 +2,8 @@ skillMetadata:
   sections:
     - name: Settings
       fields:
+      - type: label
+        label: Default Workspace the IDE will open in. Default is the Skills folder /opt/mycroft/skills.
       - name: workspace
         type: text
         label: Default workspace
