@@ -69,12 +69,13 @@ class TheiaIde(MycroftSkill):
 
     def stop_theia(self):
         self.log.info("Stopping IDE")
+        SafePath = self.file_system.path
         if self.settings.get("theia_pid") is not None:
             try:
                 os.killpg(self.settings.get("theia_pid"), signal.SIGTERM)
             except Exception:
                 proc = subprocess.Popen('pkill -f "yarn theia start"',
-                                        cwd=self.SafePath,
+                                        cwd=SafePath,
                                         preexec_fn=os.setsid,
                                         shell=True)
                 proc.wait()
@@ -87,7 +88,7 @@ class TheiaIde(MycroftSkill):
         if self.settings.get("theia_pid)") is None:
             self.log.info("Starting IDE")
             SafePath = self.file_system.path
-            theia_proc = subprocess.Popen(self.SafePath + '/theia_run.sh ' +
+            theia_proc = subprocess.Popen(SafePath + '/theia_run.sh ' +
                                           self.settings.get("workspace"),
                                           cwd=SafePath, 
                                           preexec_fn=os.setsid, shell=True)
