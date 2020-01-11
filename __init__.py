@@ -146,7 +146,7 @@ class TheiaIde(MycroftSkill):
                                             preexec_fn=os.setsid,
                                             shell=True)
                     proc.wait()
-                    proc = subprocess.Popen('rmdir ' + folder,
+                    proc = subprocess.Popen('rmdir -rf ' + folder,
                                             cwd=SafePath,
                                             preexec_fn=os.setsid,
                                             shell=True)
