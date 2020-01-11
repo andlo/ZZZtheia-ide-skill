@@ -130,7 +130,7 @@ class TheiaIde(MycroftSkill):
                 self.speak_dialog('cloning', data={"platform": platform})
                 mem = int(virtual_memory().total/(1024**2))
                 if mem < 4000:
-                    self.log.info('Memmory on device is ' + memmory + ' that is not enough.')
+                    self.log.info('Memmory on device is ' + mem + ' that is not enough.')
                     self.log.info('Sorry.')
                     self.speak_dialog('cant.install.low.memmory')
                 else:
@@ -155,7 +155,7 @@ class TheiaIde(MycroftSkill):
                     precompiled = False
             try:
                 if precompiled is True:
-                    filename = self.SafePath + '/theiaide.tgz'
+                    filename = SafePath + '/theiaide.tgz'
                     self.log.info("Unpacking....")
                     package = tarfile.open(filename)
                     package.extractall(SafePath)
