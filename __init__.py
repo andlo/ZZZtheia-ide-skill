@@ -89,7 +89,8 @@ class TheiaIde(MycroftSkill):
             self.log.info("Starting IDE")
             SafePath = self.file_system.path
             theia_proc = subprocess.Popen(SafePath + '/theia_run.sh ' +
-                                          self.settings.get("workspace"),
+                                          self.settings.get("workspace") +
+                                          ' >/dev/null 2>/dev/null ',
                                           cwd=SafePath, 
                                           preexec_fn=os.setsid, shell=True)
             self.settings["theia_pid"] = theia_proc.pid

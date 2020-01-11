@@ -6,6 +6,6 @@ skillMetadata:
             type: text
             label: Default workspace
           - name: auto_start
-            type: text
+            type: checkbox
             label: Auto start IDE
             value: "False"
