@@ -141,7 +141,12 @@ class TheiaIde(MycroftSkill):
                                             shell=True)
                     proc.wait()
                     folder = SafePath + '/theia-for-mycroft'
-                    proc = subprocess.Popen('mv ' + folder + '/* . | rmdir theia-for-mycroft',
+                    proc = subprocess.Popen('mv ' + folder + '/* .',
+                                            cwd=SafePath,
+                                            preexec_fn=os.setsid,
+                                            shell=True)
+                    proc.wait()
+                    proc = subprocess.Popen('rmdir ' + folder,
                                             cwd=SafePath,
                                             preexec_fn=os.setsid,
                                             shell=True)
