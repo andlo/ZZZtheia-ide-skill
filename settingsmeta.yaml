@@ -1,0 +1,11 @@
+skillMetadata:
+   sections:
+      - name: Settings
+        fields:
+          - name: workspace
+            type: text
+            label: Default workspace
+          - name: auto_start
+            type: text
+            label: Auto start IDE
+            value: "False"

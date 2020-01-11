@@ -16,12 +16,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-from mycroft import MycroftSkill, intent_file_handler, MYCROFT_ROOT_PATH
+from mycroft import MycroftSkill, intent_file_handler
 import os
 import tarfile
 import subprocess
 import signal
-import shutil
 from psutil import virtual_memory
 
 
@@ -31,13 +30,20 @@ class TheiaIde(MycroftSkill):
 
     def initialize(self):
         self.log.info("Initialize THEIA IDE...")
-        self.SafePath = self.file_system.path
+        if self.settings.get("workspace") is not True or self.settings.get("workspace") is None:
+            self.settings["workspace"] = str(self.config_core.get('data_dir') +
+                                         '/' + 
+                                         self.config_core.get('skills', {})
+                                         .get('msm', {})
+                                         .get('directory'))
+
         if self.settings.get("theia installed") is not True or self.settings.get("theia installed") is None:
             self.install_theia()
         if not self.pid_exists(self.settings.get("theia_pid")):
             self.settings["theia_pid"] = None
         if self.settings.get("auto_start") and self.settings.get("theia_pid") is None:
             self.run_theia()
+        self.settings.store()
 
     @intent_file_handler('stop.intent')
     def handle_ide_stop(self, message):
@@ -68,7 +74,8 @@ class TheiaIde(MycroftSkill):
                 os.killpg(self.settings.get("theia_pid"), signal.SIGTERM)
             except Exception:
                 proc = subprocess.Popen('pkill -f "yarn theia start"',
-                                        cwd = self.SafePath, preexec_fn=os.setsid, shell=True)
+                                        cwd=self.SafePath,
+                                        preexec_fn=os.setsid, shell=True)
                 proc.wait()
             self.settings["theia_pid"] = None
             return True
@@ -78,18 +85,23 @@ class TheiaIde(MycroftSkill):
     def run_theia(self):
         if self.settings.get("theia_pid)") is None:
             self.log.info("Starting IDE")
-            theia_proc = subprocess.Popen(self.SafePath + '/theia_run.sh ' + MYCROFT_ROOT_PATH,
-                                          cwd = self.SafePath, preexec_fn=os.setsid, shell=True)
+            SafePath = self.file_system.path
+            theia_proc = subprocess.Popen(self.SafePath + '/theia_run.sh ' +
+                                          self.settings.get("workspace"),
+                                          cwd=SafePath, 
+                                          preexec_fn=os.setsid, shell=True)
             self.settings["theia_pid"] = theia_proc.pid
+            self.settings.store()
             return True
         else:
             return False
 
     def install_theia(self):
+        SafePath = self.file_system.path
         platform = 'Unknown'
         if self.config_core.get('enclosure', {}).get('platform'):
             platform = self.config_core.get('enclosure', {}).get('platform')
-        if not os.path.isfile(self.SafePath + '/theia_run.sh'):
+        if not os.path.isfile(SafePath + '/theia_run.sh'):
             self.speak_dialog('install_start')
             GitRepo = 'https://api.github.com/repos/andlo/theia-for-mycroft/releases/latest'
             if platform is "mycroft_mark_1":
@@ -104,7 +116,9 @@ class TheiaIde(MycroftSkill):
                                         ' | select(.name | contains(\\"picroft\\")) ' +
                                         ' | .browser_download_url" | wget -O theiaide.tgz -i - ' +
                                         ' >/dev/null 2>/dev/null',
-                                        cwd=self.SafePath, preexec_fn=os.setsid, shell=True)
+                                        cwd=SafePath,
+                                        preexec_fn=os.setsid,
+                                    shell=True)
                 proc.wait()
                 precompiled = True
 
@@ -120,11 +134,13 @@ class TheiaIde(MycroftSkill):
                     self.log.info('Downloading and compiling')
                     self.log.info("Cloning and build package for the " + platform + " platform.")
                     proc = subprocess.Popen('git clone https://github.com/andlo/theia-for-mycroft.git',
-                                            cwd=self.SafePath, preexec_fn=os.setsid, shell=True)
+                                            cwd=SafePath, preexec_fn=os.setsid, shell=True)
                     proc.wait()
                     folder = self.SafePath + '/theia-for-mycroft'
                     proc = subprocess.Popen('mv ' + folder + '/* . && rmdir theia-for-mycroft',
-                                             cwd=self.SafePath, preexec_fn=os.setsid, shell=True)
+                                             cwd=SafePath,
+                                             preexec_fn=os.setsid,
+                                             shell=True)
                     proc.wait()
                     precompiled = False
             try:
@@ -132,13 +148,15 @@ class TheiaIde(MycroftSkill):
                     filename = self.SafePath + '/theiaide.tgz'
                     self.log.info("Unpacking....")
                     package = tarfile.open(filename)
-                    package.extractall(self.SafePath)
+                    package.extractall(SafePath)
                     package.close()
                     os.remove(filename)
                 if precompiled is False:
                     self.log.info("Compiling THEIA IDE  - This can take a while....")
                     proc = subprocess.Popen(self.SafePath + "/build_release.sh >/dev/null 2>/dev/null",
-                                          cwd=self.SafePath, preexec_fn=os.setsid, shell=True)
+                                          cwd=SafePath,
+                                          preexec_fn=os.setsid,
+                                          shell=True)
                     proc.wait()
                 self.log.info("Installed OK")
                 self.settings['theia installed'] = 'True'
