@@ -30,7 +30,7 @@ class TheiaIde(MycroftSkill):
 
     def initialize(self):
         self.log.info("Initialize THEIA IDE...")
-        if self.settings.get("workspace") is not True or self.settings.get("workspace") is None:
+        if self.settings.get("workspace") is not True or self.settings.get("workspace") == '':
             self.settings["workspace"] = str(self.config_core.get('data_dir') +
                                              '/' + 
                                              self.config_core.get('skills', {})
