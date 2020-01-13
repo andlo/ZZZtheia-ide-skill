@@ -30,18 +30,21 @@ class TheiaIde(MycroftSkill):
 
     def initialize(self):
         self.log.info("Initialize THEIA IDE...")
-        if self.settings.get("workspace") is not True or self.settings.get("workspace") == '':
+        if (self.settings.get("workspace") is not True or
+                self.settings.get("workspace") == ''):
             self.settings["workspace"] = str(self.config_core.get('data_dir') +
-                                             '/' + 
+                                             '/' +
                                              self.config_core.get('skills', {})
                                              .get('msm', {})
                                              .get('directory'))
 
-        if self.settings.get("theia installed") is not True or self.settings.get("theia installed") is None:
+        if (self.settings.get("theia installed") is not True or
+                self.settings.get("theia installed") is None):
             self.install_theia()
         if not self.pid_exists(self.settings.get("theia_pid")):
             self.settings["theia_pid"] = None
-        if self.settings.get("auto_start") and self.settings.get("theia_pid") is None:
+        if (self.settings.get("auto_start") and
+                self.settings.get("theia_pid") is None):
             self.run_theia()
         self.settings.store()
 
@@ -91,7 +94,7 @@ class TheiaIde(MycroftSkill):
             theia_proc = subprocess.Popen(SafePath + '/theia_run.sh ' +
                                           self.settings.get("workspace") +
                                           ' >/dev/null 2>/dev/null ',
-                                          cwd=SafePath, 
+                                          cwd=SafePath,
                                           preexec_fn=os.setsid, shell=True)
             self.settings["theia_pid"] = theia_proc.pid
             self.settings.store()
@@ -106,37 +109,47 @@ class TheiaIde(MycroftSkill):
             platform = self.config_core.get('enclosure', {}).get('platform')
         if not os.path.isfile(SafePath + '/theia_run.sh'):
             self.speak_dialog('install_start')
-            GitRepo = 'https://api.github.com/repos/andlo/theia-for-mycroft/releases/latest'
+            GitRepo = ('https://api.github.com/repos/andlo/' +
+                       'theia-for-mycroft/releases/latest')
             if platform == "mycroft_mark_1":
-                self.log.info('Platform Mark_1 - ThiaIDE cant run on a this device')
+                self.log.info('Platform Mark_1 - ' +
+                              'ThiaIDE cant run on a this device')
                 self.speak_dialog('platform_not_supported')
                 self.settings['theia installed'] = 'False'
                 return
             elif platform == "picroft":
-                self.log.info("Downloading precompiled package for the " + platform + " platform.")
+                self.log.info("Downloading precompiled package for the " +
+                              platform + " platform.")
                 self.speak_dialog('downloading', data={"platform": platform})
-                proc = subprocess.Popen('curl -s ' + GitRepo + ' | jq -r ".assets[] ' + 
-                                        ' | select(.name | contains(\\"picroft\\")) ' +
-                                        ' | .browser_download_url" | wget -O theiaide.tgz -i - ' +
-                                        ' >/dev/null 2>/dev/null',
-                                        cwd=SafePath,
+                curl = ('curl -s ' + GitRepo + ' | jq -r ".assets[] ' +
+                        ' | select(.name | contains(\\"picroft\\")) ' +
+                        ' | .browser_download_url"' +
+                        ' | wget -O theiaide.tgz -i - ' +
+                        ' >/dev/null 2>/dev/null')
+                proc = subprocess.Popen(curl, cwd=SafePath,
                                         preexec_fn=os.setsid,
                                         shell=True)
                 proc.wait()
                 precompiled = True
 
             else:
-                self.log.info('Platform ' + platform + ' - no precompiled package')
-                self.speak_dialog('cloning', data={"platform": platform})
+                self.log.info('Platform ' + platform +
+                              ' - no precompiled package')
+                self.speak_dialog('cloning',
+                                  data={"platform": platform})
                 mem = int(virtual_memory().total/(1024**2))
                 if mem < 4000:
-                    self.log.info('Memmory on device is ' + mem + ' that is not enough.')
+                    self.log.info('Memmory on device is ' + mem +
+                                  ' that is not enough.')
                     self.log.info('Sorry.')
                     self.speak_dialog('cant.install.low.memmory')
                 else:
                     self.log.info('Downloading and compiling')
-                    self.log.info("Cloning and build package for the " + platform + " platform.")
-                    proc = subprocess.Popen('git clone https://github.com/andlo/theia-for-mycroft.git',
+                    self.log.info("Cloning and build package for the " +
+                                  platform + " platform.")
+                    cmd = ('git clone ' +
+                           'https://github.com/andlo/theia-for-mycroft.git')
+                    proc = subprocess.Popen(cmd,
                                             cwd=SafePath,
                                             preexec_fn=os.setsid,
                                             shell=True)
@@ -162,8 +175,10 @@ class TheiaIde(MycroftSkill):
                     package.close()
                     os.remove(filename)
                 if precompiled is False:
-                    self.log.info("Compiling THEIA IDE  - This can take a while....")
-                    proc = subprocess.Popen(SafePath + "/build_release.sh >/dev/null 2>/dev/null",
+                    self.log.info('Compiling THEIA IDE - ' +
+                                  'This can take a while....')
+                    cmd = SafePath + "/build_release.sh >/dev/null 2>/dev/null"
+                    proc = subprocess.Popen(cmd,
                                             cwd=SafePath,
                                             preexec_fn=os.setsid,
                                             shell=True)
