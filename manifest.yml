@@ -3,6 +3,7 @@ dependencies:
   # Pip dependencies on PyPI
   python:
     - ptvsd
+    - pyls
     - python-language-server[all]
     - jedi
     - pylint
