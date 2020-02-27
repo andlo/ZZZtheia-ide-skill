@@ -46,7 +46,6 @@ class TheiaIde(MycroftSkill):
         if (self.settings.get("auto_start") and
                 self.settings.get("theia_pid") is None):
             self.run_theia()
-        self.settings.store()
 
     @intent_file_handler('stop.intent')
     def handle_ide_stop(self, message):
@@ -97,7 +96,6 @@ class TheiaIde(MycroftSkill):
                                           cwd=SafePath,
                                           preexec_fn=os.setsid, shell=True)
             self.settings["theia_pid"] = theia_proc.pid
-            self.settings.store()
             return True
         else:
             return False
